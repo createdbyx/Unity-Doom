@@ -1,0 +1,368 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1274280178394502}
+  m_IsPrefabParent: 1
+--- !u!1 &1274280178394502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4739932167163664}
+  - component: {fileID: 33377394659280260}
+  - component: {fileID: 136987856792794354}
+  - component: {fileID: 23956495334945750}
+  - component: {fileID: 114509368362567488}
+  - component: {fileID: 114811672093205294}
+  - component: {fileID: 114605578178288104}
+  - component: {fileID: 54863852911176308}
+  m_Layer: 8
+  m_Name: Imp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4739932167163664
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23956495334945750
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 9bc63b289e36037468ad53d492419d84, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33377394659280260
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Mesh: {fileID: 0}
+--- !u!54 &54863852911176308
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &114509368362567488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75df1703dcd59c4c86fc8ecaec0bf50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  attackDistance: 5
+  health: 10
+  deadLayer: DeadEntity
+--- !u!114 &114605578178288104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dfd8f9756a1a0499a198e1f129e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSets:
+  - animationId: IDLE
+    events: []
+    forward:
+    - TROOA1
+    forwardRight:
+    - TROOA2A8
+    right:
+    - TROOA3A7
+    backRight:
+    - TROOA4A6
+    back:
+    - TROOA5
+    forwardSprites: []
+    forwardRightSprites: []
+    rightSprites: []
+    backRightSprites: []
+    backSprites: []
+  - animationId: MOVE
+    events: []
+    forward:
+    - TROOA1
+    - TROOB1
+    - TROOC1
+    - TROOD1
+    forwardRight:
+    - TROOA2A8
+    - TROOB2B8
+    - TROOC2C8
+    right:
+    - TROOA3A7
+    - TROOB3B7
+    - TROOC3C7
+    backRight:
+    - TROOA4A6
+    - TROOB4B6
+    - TROOC4C6
+    back:
+    - TROOA5
+    - TROOB5
+    - TROOC5
+    - TROOD5
+    forwardSprites: []
+    forwardRightSprites: []
+    rightSprites: []
+    backRightSprites: []
+    backSprites: []
+  - animationId: HIT
+    events:
+    - frame: 0
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114509368362567488}
+            m_MethodName: StopMovement
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 1
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114509368362567488}
+            m_MethodName: ResumeMovement
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    forward:
+    - TROOH1
+    - TROOH1
+    forwardRight:
+    - TROOH2H8
+    - TROOH2H8
+    right:
+    - TROOH3H7
+    - TROOH3H7
+    backRight:
+    - TROOH4H6
+    - TROOH4H6
+    back:
+    - TROOH5
+    - TROOH5
+    forwardSprites: []
+    forwardRightSprites: []
+    rightSprites: []
+    backRightSprites: []
+    backSprites: []
+  - animationId: DEAD
+    events: []
+    forward:
+    - TROOI0
+    - TROOJ0
+    - TROOK0
+    - TROOL0
+    - TROOM0
+    forwardRight:
+    - TROOI0
+    - TROOJ0
+    - TROOK0
+    - TROOL0
+    - TROOM0
+    right:
+    - TROOI0
+    - TROOJ0
+    - TROOK0
+    - TROOL0
+    - TROOM0
+    backRight:
+    - TROOI0
+    - TROOJ0
+    - TROOK0
+    - TROOL0
+    - TROOM0
+    back:
+    - TROOI0
+    - TROOJ0
+    - TROOK0
+    - TROOL0
+    - TROOM0
+    forwardSprites: []
+    forwardRightSprites: []
+    rightSprites: []
+    backRightSprites: []
+    backSprites: []
+  - animationId: ATTACK
+    events:
+    - frame: 0
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114509368362567488}
+            m_MethodName: StopMovement
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 1
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114509368362567488}
+            m_MethodName: ResumeMovement
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 114509368362567488}
+            m_MethodName: DoAttack
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    forward:
+    - TROOE1
+    - TROOF1
+    forwardRight:
+    - TROOE2E8
+    - TROOF2F8
+    right:
+    - TROOE3E7
+    - TROOF3F7
+    backRight:
+    - TROOE4E6
+    - TROOF4F6
+    back:
+    - TROOE5
+    - TROOF5
+    forwardSprites: []
+    forwardRightSprites: []
+    rightSprites: []
+    backRightSprites: []
+    backSprites: []
+  StopAnimationUpdateAfterCurrent: 0
+--- !u!114 &114811672093205294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea050f96905dfe4b9d4d7ef2892edca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thingName: Imp
+  thingID: 3001
+  spriteName: TROOA1
+  alwaysBright: 0
+  dynamic: 1
+  material: {fileID: 0}
+--- !u!136 &136987856792794354
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}

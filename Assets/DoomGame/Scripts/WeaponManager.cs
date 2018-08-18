@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponLoader : MonoBehaviour {
+public class WeaponManager : MonoBehaviour {
 
 	private const float AnimationUpdateTick = 0.1f;
 
 	[SerializeField] private string startWeapon = "PISTOL";
-	[SerializeField] private RawImage weaponImage = null;
-	[SerializeField] private RawImage muzzleImage = null;
+	//[SerializeField] private RawImage weaponImage = null;
+	//[SerializeField] private RawImage muzzleImage = null;
 	[SerializeField] private AudioSource audioSource = null;
 	[SerializeField] private LayerMask entityLayer = 0;
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
 	private int weaponIdx = 0;
 	private int animIdx = 0;
-	private bool playingShotAudio = false;
+	//private bool playingShotAudio = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class WeaponLoader : MonoBehaviour {
 		// Shoot
 		if (Input.GetMouseButtonDown (0)) {
 			if (animIdx == 0 && (weaponTypes [weaponIdx].ammo != 0 || weaponTypes [weaponIdx].unlimitedAmmo)) {
-				playingShotAudio = false;
+				//playingShotAudio = false;
 				PlayShootAnimation ();
 			}
 		}
@@ -50,33 +50,36 @@ public class WeaponLoader : MonoBehaviour {
 		if (animIdx < weaponTypes [weaponIdx].attackSprites.Length) {
 			SetWeaponSprite (weaponTypes [weaponIdx].attackSprites [animIdx]);
 
-			if (!string.IsNullOrEmpty (weaponTypes [weaponIdx].muzzleSprites [animIdx])) {
-				// Enable Muzzle
+			// Muzzle
+			if (animIdx < weaponTypes [weaponIdx].muzzleSprites.Length && !string.IsNullOrEmpty (weaponTypes [weaponIdx].muzzleSprites [animIdx])) {
 				Texture t = TextureLoader.Instance.GetSpriteTexture (weaponTypes [weaponIdx].muzzleSprites [animIdx]);
-				muzzleImage.texture = t;
-				muzzleImage.gameObject.SetActive (true);
-				((RectTransform)muzzleImage.transform).anchoredPosition = weaponTypes [weaponIdx].muzzlePosition;
+				weaponTypes [weaponIdx].muzzleImage.texture = t;
+				weaponTypes [weaponIdx].muzzleImage.gameObject.SetActive (true);
+			} else if (weaponTypes[weaponIdx].muzzleImage != null) {
+				weaponTypes [weaponIdx].muzzleImage.gameObject.SetActive (false);
+			}
 
-				// Play Audio
-				if (!playingShotAudio) {
-					AudioClip clip = SoundLoader.LoadSound (weaponTypes [weaponIdx].shotSound);
+			// Audio
+			if (animIdx < weaponTypes [weaponIdx].audioFrames.Length) {
+				if (!string.IsNullOrEmpty (weaponTypes [weaponIdx].audioFrames [animIdx])) {
+					AudioClip clip = SoundLoader.LoadSound (weaponTypes [weaponIdx].audioFrames [animIdx]);
 					audioSource.PlayOneShot (clip);
-					playingShotAudio = true;
-					if (!weaponTypes [weaponIdx].unlimitedAmmo) {
-						weaponTypes [weaponIdx].ammo--;
-					}
-					// Raycast
-					GameObject[] hitObjects;
-					if (HitEntity (Mathf.Infinity, out hitObjects)) {
-						foreach (GameObject go in hitObjects) {
-							if (entityLayer.Contains (go.layer)) {
-								go.GetComponent<EntityAI>().DamageEntity(weaponTypes [weaponIdx].damage);
-							}
-						}
-					}
 				}
-			} else {
-				muzzleImage.gameObject.SetActive(false);
+			}
+
+			if (animIdx == weaponTypes [weaponIdx].attackIdx) {
+				if (!weaponTypes [weaponIdx].unlimitedAmmo) {
+					weaponTypes [weaponIdx].ammo--;
+				}
+				GameObject[] hitObjects;
+				switch (weaponTypes[weaponIdx].attackType) {
+				case AttackType.MeleeOneShot:
+					TryHitRaycast(1.5f, weaponTypes[weaponIdx].damage);
+					break;
+				case AttackType.RaycastOneShot:
+					TryHitRaycast(Mathf.Infinity, weaponTypes[weaponIdx].damage);
+					break;
+				}
 			}
 
 			animIdx++;
@@ -89,7 +92,6 @@ public class WeaponLoader : MonoBehaviour {
 
 	private void Init() {
 		SetSelectedWeapon(startWeapon);
-		weaponImage.gameObject.SetActive(true);
 	}
 
 	public void ObtainWeapon(string id, WeaponType.State state) {
@@ -105,8 +107,12 @@ public class WeaponLoader : MonoBehaviour {
 
 	public void SetSelectedWeapon(int idx) {
 		if (weaponTypes [idx].state == WeaponType.State.Missing) return;
+
+		weaponTypes[weaponIdx].weaponImage.gameObject.SetActive(false);
+
 		weaponIdx = idx;
 		SetWeaponSprite(weaponTypes [weaponIdx].idleSprite);
+		weaponTypes[weaponIdx].weaponImage.gameObject.SetActive(true);
 	}
 
 	public void SetSelectedWeapon (string id)
@@ -123,7 +129,7 @@ public class WeaponLoader : MonoBehaviour {
 	
 	private void SetWeaponSprite(string weaponID) {
 		Texture t = TextureLoader.Instance.GetSpriteTexture(weaponID);
-		weaponImage.texture = t;
+		weaponTypes[weaponIdx].weaponImage.texture = t;
 	}
 
 	public void SetAmmo (string weaponID, int ammo)
@@ -146,6 +152,18 @@ public class WeaponLoader : MonoBehaviour {
 		}
 		Debug.LogError("Invalid Weapon From ID: " + id);
 		return new WeaponType();
+	}
+
+	private void TryHitRaycast (float distance, int damage)
+	{
+		GameObject[] hitObjects;
+		if (HitEntity (distance, out hitObjects)) {
+			foreach (GameObject go in hitObjects) {
+				if (entityLayer.Contains (go.layer)) {
+					go.GetComponent<EntityAI> ().DamageEntity (damage);
+				}
+			}
+		}
 	}
 
 	private bool HitEntity (float distance, out GameObject[] hitObjects)
@@ -174,16 +192,18 @@ public class WeaponLoader : MonoBehaviour {
 		public int damage = 5;
 		[TooltipAttribute("ID of sprite when idle")]
 		public string idleSprite;
-		[TooltipAttribute("ID of Sound Made When Shot")]
-		public string shotSound;
-		[TooltipAttribute("Position to place muzzle tip")]
-		public Vector2 muzzlePosition;
 		public AttackType attackType;
 		public State state;
+		public RawImage weaponImage;
+		public RawImage muzzleImage;
 		[TooltipAttribute("Sprite IDs to play attack animation")]
 		public string[] attackSprites;
-		[TooltipAttribute("Sprite ID to play muzzle animation")]
+		[TooltipAttribute("Sprite IDs to play muzzle animation")]
 		public string[] muzzleSprites;
+		[TooltipAttribute("Audio IDs to play at animation frames")]
+		public string[] audioFrames;
+		[TooltipAttribute("Animation idx to start weapon attack logic (raycasts etc)")]
+		public int attackIdx;
 
 		public enum State {
 			Normal,

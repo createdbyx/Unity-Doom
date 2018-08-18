@@ -6,7 +6,7 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private int armour = 0;
 	[SerializeField] private float speed = 8.0F;
 	[SerializeField] private float rotateSpeed = 1.0F;
-	[SerializeField] private WeaponLoader weaponLoader = null;
+	[SerializeField] private WeaponManager weaponManager = null;
     [SerializeField] private AudioSource oofAudio = null;
     [SerializeField] private LayerMask pickupLayer = 0;
 
@@ -47,7 +47,7 @@ public class PlayerControls : MonoBehaviour
 			}
 			break;
 		case Pickup.PickupType.Ammo:
-			WeaponLoader.WeaponType wt = weaponLoader.WeaponTypeFromString (p.target);
+			WeaponManager.WeaponType wt = weaponManager.WeaponTypeFromString (p.target);
 			int ammo = 0;
 			if (p.maxVal == -1) {
 				ammo += p.strength;
@@ -55,10 +55,10 @@ public class PlayerControls : MonoBehaviour
 				AddPickupValue (p.strength, p.maxVal, ref ammo);
 			}
 
-			weaponLoader.SetAmmo(p.target, ammo);
-			if (wt.state == WeaponLoader.WeaponType.State.Missing && p.toggle) {
-				weaponLoader.ObtainWeapon(p.target, (WeaponLoader.WeaponType.State.Normal));
-				weaponLoader.SetSelectedWeapon(p.target);
+			weaponManager.SetAmmo(p.target, ammo);
+			if (wt.state == WeaponManager.WeaponType.State.Missing && p.toggle) {
+				weaponManager.ObtainWeapon(p.target, (WeaponManager.WeaponType.State.Normal));
+				weaponManager.SetSelectedWeapon(p.target);
 			}
 			p.DoPickup();
 

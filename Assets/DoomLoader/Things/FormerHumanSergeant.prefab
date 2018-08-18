@@ -195,6 +195,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad2af8c3a753d743bec16be7d679dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds:
+  - name: ALERT
+    soundIds:
+    - DSPOSIT1
+    - DSPOSIT2
+    - DSPOSIT3
+  - name: DEATH
+    soundIds:
+    - DSPODTH1
+    - DSPODTH2
+    - DSPODTH3
+  - name: ACTION
+    soundIds:
+    - DSPOSACT
+  - name: SHOOT
+    soundIds:
+    - DSPISTOL
+  - name: PAIN
+    soundIds:
+    - DSPOPAIN
 --- !u!114 &114390560946345184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,7 +378,75 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: DSPDIEHI
+              m_StringArgument: DEATH
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 1
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114811672093205294}
+            m_MethodName: SetHeight
+            m_Mode: 4
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0.875
+              m_StringArgument: DEATH
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 2
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114811672093205294}
+            m_MethodName: SetHeight
+            m_Mode: 4
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0.75
+              m_StringArgument: DEATH
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 3
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114811672093205294}
+            m_MethodName: SetHeight
+            m_Mode: 4
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0.675
+              m_StringArgument: DEATH
+              m_BoolArgument: 0
+            m_CallState: 2
+        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - frame: 4
+      onFrame:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 114811672093205294}
+            m_MethodName: SetHeight
+            m_Mode: 4
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0.5
+              m_StringArgument: DEATH
               m_BoolArgument: 0
             m_CallState: 2
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -441,6 +529,17 @@ MonoBehaviour:
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 114215629061243082}
+            m_MethodName: PlaySound
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: SHOOT
               m_BoolArgument: 0
             m_CallState: 2
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,

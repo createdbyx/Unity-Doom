@@ -77,13 +77,17 @@ public class ThingController : MonoBehaviour
         mr.SetPropertyBlock(materialProperties);
     }
 
+    public void SetHeight (float input) {
+		materialProperties.SetFloat("_ScaleY", input);
+	}
+
     public void SetSpriteDirection (int input) {
 		if (input > 0) {
-			transform.localScale = Vector3.one;
+			transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y,1);
 			materialProperties.SetFloat("_ScaleX", 1);
       		mr.SetPropertyBlock(materialProperties);
 		} else {
-			transform.localScale = new Vector3(1,1,-1);
+			transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y,-1);
 			materialProperties.SetFloat("_ScaleX", -1);
       		mr.SetPropertyBlock(materialProperties);
 		}

@@ -46,8 +46,8 @@ public class EntityAnimator : MonoBehaviour {
 	// Update Animation Frame continuially
 	private IEnumerator DoAnimationFrame ()
 	{
-		if (Camera.current != null) {
-			if (Vector3.Distance (Camera.current.transform.position, transform.position) < animationDistanceCull) {
+		if (Camera.main != null) {
+			if (Vector3.Distance (Camera.main.transform.position, transform.position) < animationDistanceCull) {
 				thingController.SetTexture (GetDirectionAnimationTexture ());
 				animationIdx++;
 			}
@@ -129,9 +129,13 @@ public class EntityAnimator : MonoBehaviour {
 		return 8 - (Mathf.RoundToInt((rotation.y/360f) * 8f));
 	}
 
-	private int AnimIdxBillboard() {
+	private int AnimIdxBillboard ()
+	{
 		// Heading (Camera.current makes the billboard effect work on scene view)
-		Vector3 heading = Camera.current.transform.position - transform.position;
+		Vector3 heading = Vector3.zero;
+		if (Camera.main != null) heading = Camera.main.transform.position - transform.position;
+		if (Camera.current != null) heading = Camera.current.transform.position - transform.position;
+
 		float distance = heading.magnitude;
 		Vector3 direction = heading / distance;
 

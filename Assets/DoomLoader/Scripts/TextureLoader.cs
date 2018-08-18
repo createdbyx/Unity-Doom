@@ -287,6 +287,34 @@ public class TextureLoader : MonoBehaviour
         return false;
     }
 
+    public Texture TextureFromLump (Lump l)
+	{
+		int[,] pixelindices = ReadPatchData(l.data);
+        int width = pixelindices.GetLength(0);
+        int height = pixelindices.GetLength(1);
+        Color[] pixels = new Color[height * width];
+        for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+                pixels[y * width + x] = Palette[pixelindices[x, y]];
+
+        Texture2D tex = new Texture2D(width, height);
+        tex.SetPixels(pixels);
+        if (_overrideParameters.ContainsKey(l.lumpName))
+        {
+            TextureParameters p = _overrideParameters[l.lumpName];
+            tex.wrapModeU = p.horizontalWrapMode;
+            tex.wrapModeV = p.verticalWrapMode;
+            tex.filterMode = p.filterMode;
+        }
+        else
+        {
+            tex.wrapMode = TextureWrapMode.Clamp;
+            tex.filterMode = DefaultFilterMode;
+        }
+        tex.Apply();
+        return tex;
+	}
+
     public void LoadFlats()
     {
         bool begin = false;

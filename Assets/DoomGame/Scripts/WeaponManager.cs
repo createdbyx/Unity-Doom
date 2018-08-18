@@ -8,12 +8,19 @@ public class WeaponManager : MonoBehaviour {
 	private const float AnimationUpdateTick = 0.1f;
 
 	[SerializeField] private string startWeapon = "PISTOL";
+	[SerializeField] private GUIManager guiManager = null;
 	[SerializeField] private AudioSource audioSource = null;
 	[SerializeField] private LayerMask entityLayer = 0;
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
 	private int weaponIdx = 0;
 	private int animIdx = 0;
+
+	public int CurrentAmmo {
+		get {
+			return (weaponTypes[weaponIdx].unlimitedAmmo ? -1 : weaponTypes[weaponIdx].ammo);
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +73,7 @@ public class WeaponManager : MonoBehaviour {
 			if (animIdx == weaponTypes [weaponIdx].attackIdx) {
 				if (!weaponTypes [weaponIdx].unlimitedAmmo) {
 					weaponTypes [weaponIdx].ammo--;
+					guiManager.SetAmmo(weaponTypes [weaponIdx].ammo);
 				}
 				switch (weaponTypes[weaponIdx].attackType) {
 				case AttackType.MeleeOneShot:

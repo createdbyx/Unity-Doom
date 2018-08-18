@@ -7,8 +7,13 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private float speed = 8.0F;
 	[SerializeField] private float rotateSpeed = 1.0F;
 	[SerializeField] private WeaponManager weaponManager = null;
+	[SerializeField] private GUIManager guiManager = null;
     [SerializeField] private AudioSource oofAudio = null;
     [SerializeField] private LayerMask pickupLayer = 0;
+
+    void Start() {
+		Invoke("UpdateGUIStats", 0.15f);
+    }
 
     void Update ()
 	{
@@ -31,6 +36,12 @@ public class PlayerControls : MonoBehaviour
 				}
             }
         }
+    }
+
+    private void UpdateGUIStats() {
+		guiManager.SetAmmo(weaponManager.CurrentAmmo);
+		guiManager.SetHealth(health);
+		guiManager.SetArmour(armour);
     }
 
     private void HandlePickup (Pickup p)
@@ -64,6 +75,7 @@ public class PlayerControls : MonoBehaviour
 
 			break;
 		}
+		UpdateGUIStats();
     }
 
     private bool AddPickupValue (int addVal, int maxVal, ref int outVal)

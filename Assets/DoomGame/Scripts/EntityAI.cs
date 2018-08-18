@@ -20,7 +20,6 @@ public class EntityAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<EntityAnimator>();
-		animator.SetAnimationSet("IDLE");
 		StartCoroutine(UpdateAI());
 	}
 

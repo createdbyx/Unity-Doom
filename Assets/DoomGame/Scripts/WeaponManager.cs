@@ -67,7 +67,6 @@ public class WeaponManager : MonoBehaviour {
 				if (!weaponTypes [weaponIdx].unlimitedAmmo) {
 					weaponTypes [weaponIdx].ammo--;
 				}
-				GameObject[] hitObjects;
 				switch (weaponTypes[weaponIdx].attackType) {
 				case AttackType.MeleeOneShot:
 					TryHitRaycast(1.5f, weaponTypes[weaponIdx].damage);

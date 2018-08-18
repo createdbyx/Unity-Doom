@@ -8,15 +8,12 @@ public class WeaponManager : MonoBehaviour {
 	private const float AnimationUpdateTick = 0.1f;
 
 	[SerializeField] private string startWeapon = "PISTOL";
-	//[SerializeField] private RawImage weaponImage = null;
-	//[SerializeField] private RawImage muzzleImage = null;
 	[SerializeField] private AudioSource audioSource = null;
 	[SerializeField] private LayerMask entityLayer = 0;
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
 	private int weaponIdx = 0;
 	private int animIdx = 0;
-	//private bool playingShotAudio = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +25,6 @@ public class WeaponManager : MonoBehaviour {
 		// Shoot
 		if (Input.GetMouseButtonDown (0)) {
 			if (animIdx == 0 && (weaponTypes [weaponIdx].ammo != 0 || weaponTypes [weaponIdx].unlimitedAmmo)) {
-				//playingShotAudio = false;
 				PlayShootAnimation ();
 			}
 		}

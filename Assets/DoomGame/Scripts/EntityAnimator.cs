@@ -73,7 +73,7 @@ public class EntityAnimator : MonoBehaviour {
 		if (animationIdx >= currentAnimation.Length) {
 			if (StopAnimationUpdateAfterCurrent) {
 				animationIdx = currentAnimation.Length - 1;
-				StopCoroutine (DoAnimationFrame ());
+				StopAllCoroutines();
 			} else {
 				animationIdx = 0;
 			}

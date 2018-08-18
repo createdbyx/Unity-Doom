@@ -36,6 +36,7 @@ public class EntityAI : MonoBehaviour {
 
 	public void StopMovement() {
 		movementOverride = true;
+		isMoving = false;
 	}
 
 	public void ResumeMovement() {

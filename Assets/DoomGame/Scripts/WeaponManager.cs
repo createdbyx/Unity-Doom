@@ -162,8 +162,9 @@ public class WeaponManager : MonoBehaviour {
 				}
 				if (wt.ammoType != AmmoType.UNLM) {
 					Debug.LogError ("Weapon: " + wt.name + " using unlisted ammo type: " + wt.ammoType.ToString ());
+					return 0;
 				}
-				return 0;
+				return -1;
 			}
 		}
 		Debug.LogError("Invalid Weapon ID: " + weaponID);

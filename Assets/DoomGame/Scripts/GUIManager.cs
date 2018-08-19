@@ -8,46 +8,40 @@ public class GUIManager : MonoBehaviour {
 
 	public void SetAmmo (int ammo)
 	{
-		string asString = "";
-		if (ammo < 100) {
-			asString = "0";
-		}
-		if (ammo < 10) {
-			asString += "0";
-		}
-		asString += ammo.ToString ();
+		ammoLetters [0].gameObject.SetActive (ammo >= 100);
+		ammoLetters [1].gameObject.SetActive (ammo >= 10);
+		int numberIdx = 0;
 		for (int i = 0; i < 3; i++) {
-			ammoLetters[i].SetLetter(asString[i].ToString());
+			if (ammoLetters [i].gameObject.activeSelf) {
+				ammoLetters[i].SetLetter(ammo.ToString()[numberIdx].ToString());
+				numberIdx++;
+			}
 		}
 	}
 
 	public void SetHealth (int health)
 	{
-		string asString = "";
-		if (health < 100) {
-			asString = "0";
-		}
-		if (health < 10) {
-			asString += "0";
-		}
-		asString += health.ToString ();
+		healthLetters[0].gameObject.SetActive(health >= 100);
+		healthLetters[1].gameObject.SetActive(health >= 10);
+		int numberIdx = 0;
 		for (int i = 0; i < 3; i++) {
-			healthLetters[i].SetLetter(asString[i].ToString());
+			if (healthLetters [i].gameObject.activeSelf) {
+				healthLetters[i].SetLetter(health.ToString()[numberIdx].ToString());
+				numberIdx++;
+			}
 		}
 	}
 
 	public void SetArmour (int armour)
 	{
-		string asString = "";
-		if (armour < 100) {
-			asString = "0";
-		}
-		if (armour < 10) {
-			asString += "0";
-		}
-		asString += armour.ToString ();
+		armourLetters[0].gameObject.SetActive(armour >= 100);
+		armourLetters[1].gameObject.SetActive(armour >= 10);
+		int numberIdx = 0;
 		for (int i = 0; i < 3; i++) {
-			armourLetters[i].SetLetter(asString[i].ToString());
+			if (armourLetters [i].gameObject.activeSelf) {
+				armourLetters[i].SetLetter(armour.ToString()[numberIdx].ToString());
+				numberIdx++;
+			}
 		}
 	}
 }

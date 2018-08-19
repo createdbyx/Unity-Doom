@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 3
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &47735646
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &52386161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &70323794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -705,7 +705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &136212134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -763,7 +763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &136212137
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -905,7 +905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &275349365
 RectTransform:
   m_ObjectHideFlags: 0
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &275349368
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &469491672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 5
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &663324659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &712507856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &807063112
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 2
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &841702591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1901,7 +1901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1008702927
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1008702930
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2041,7 +2041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1009170817
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2757,7 +2757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1228399916
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2907,7 +2907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 5
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1273860121
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3362,7 +3362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1559063803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3444,7 +3444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 5
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1579214066
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1594907487
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3930,7 +3930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1768922202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3988,7 +3988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1768922205
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4012,7 +4012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1811906741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4070,7 +4070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1811906744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4240,7 +4240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1863253025
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4298,7 +4298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1863253028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4322,7 +4322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1874313244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4380,7 +4380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 1
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &1874313247
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4476,7 +4476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2027558293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4534,7 +4534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &2027558296
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4616,7 +4616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &2054427933
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5039,7 +5039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2107435925
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5097,7 +5097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   letter: 0
   fontType: 1
-  loadOnStart: 1
+  loadOnStart: 0
 --- !u!222 &2107435928
 CanvasRenderer:
   m_ObjectHideFlags: 0

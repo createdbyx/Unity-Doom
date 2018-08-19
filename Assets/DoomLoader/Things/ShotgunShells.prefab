@@ -99,7 +99,8 @@ MonoBehaviour:
   pickupType: 2
   target: SHOTGUN
   strength: 4
-  maxVal: -1
+  maxVal: 50
+  toggle: 0
   pickupSound: DSITEMUP
 --- !u!114 &114811672093205294
 MonoBehaviour:

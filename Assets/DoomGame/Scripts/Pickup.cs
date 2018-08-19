@@ -64,6 +64,7 @@ public class PickupEditor : Editor
 		}
 
 		main.pickupSound = EditorGUILayout.TextField("Pickup Sound", main.pickupSound);
+		EditorUtility.SetDirty(main);
     }
 }
 #endif

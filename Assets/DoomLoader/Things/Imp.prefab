@@ -116,7 +116,7 @@ MonoBehaviour:
   moveSpeed: 5
   attackDistance: 5
   health: 10
-  deadLayer: DeadEntity
+  deadLayer: Ignore Raycast
 --- !u!114 &114605578178288104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,7 +304,7 @@ MonoBehaviour:
             m_CallState: 2
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-    - frame: 1
+    - frame: 2
       onFrame:
         m_PersistentCalls:
           m_Calls:
@@ -320,11 +320,12 @@ MonoBehaviour:
               m_BoolArgument: 0
             m_CallState: 2
           - m_Target: {fileID: 114509368362567488}
-            m_MethodName: DoAttack
-            m_Mode: 1
+            m_MethodName: FireProjectile
+            m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_ObjectArgument: {fileID: 1976649968534376, guid: 12366a8f7de706c44b0fec99ea8c3d9b,
+                type: 2}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -335,18 +336,23 @@ MonoBehaviour:
     forward:
     - TROOE1
     - TROOF1
+    - TROOG1
     forwardRight:
     - TROOE2E8
     - TROOF2F8
+    - TROOG2G8
     right:
     - TROOE3E7
     - TROOF3F7
+    - TROOG3G7
     backRight:
     - TROOE4E6
     - TROOF4F6
+    - TROOG4G6
     back:
     - TROOE5
     - TROOF5
+    - TROOG5
     forwardSprites: []
     forwardRightSprites: []
     rightSprites: []

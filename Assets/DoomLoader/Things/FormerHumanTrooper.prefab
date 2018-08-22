@@ -516,7 +516,7 @@ MonoBehaviour:
   moveSpeed: 5
   attackDistance: 5
   health: 10
-  deadLayer: DeadEntity
+  deadLayer: Ignore Raycast
 --- !u!114 &114721535621290212
 MonoBehaviour:
   m_ObjectHideFlags: 1

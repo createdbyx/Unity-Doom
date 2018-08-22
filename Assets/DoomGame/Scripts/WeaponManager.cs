@@ -219,7 +219,7 @@ public class WeaponManager : MonoBehaviour {
 			Vector3 rayOrigin = transform.position + new Vector3 (0, 0.5f * i, 0);
 			Ray ray = new Ray (rayOrigin, transform.forward);
 			RaycastHit hit;
-			if (Physics.Raycast (ray, out hit, distance, -1)) {
+			if (Physics.Raycast (ray, out hit, distance)) {
 				if (!list.Contains (hit.transform.gameObject)) {
 					list.Add (hit.transform.gameObject);
 				}

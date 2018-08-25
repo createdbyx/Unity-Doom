@@ -133,8 +133,8 @@ public class EntityAnimator : MonoBehaviour {
 	{
 		// Heading (Camera.current makes the billboard effect work on scene view)
 		Vector3 heading = Vector3.zero;
-		if (Camera.main != null) heading = Camera.main.transform.position - transform.position;
 		if (Camera.current != null) heading = Camera.current.transform.position - transform.position;
+		if (Camera.main != null) heading = Camera.main.transform.position - transform.position;
 
 		float distance = heading.magnitude;
 		Vector3 direction = heading / distance;

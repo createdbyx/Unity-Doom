@@ -216,7 +216,7 @@ public class WeaponManager : MonoBehaviour {
 	{
 		List<GameObject> list = new List<GameObject> ();
 		for (int i = 0; i < 10; i++) {
-			Vector3 rayOrigin = transform.position + new Vector3 (0, 0.5f * i, 0);
+			Vector3 rayOrigin = transform.position + new Vector3 (0, (0.5f * i)-1, 0);
 			Ray ray = new Ray (rayOrigin, transform.forward);
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, distance)) {

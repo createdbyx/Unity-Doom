@@ -39,12 +39,9 @@ public class EntityAI : MonoBehaviour {
 		transform.LookAt(targetPos);
 		Debug.DrawLine(transform.position + transform.up * 1, transform.position + transform.up * 1 + (transform.forward * 15), Color.red, 0.2f);
 
-		int layer = LayerMask.NameToLayer("Entity");
-		Debug.Log(LayerMask.LayerToName(layer));
-
-
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position + transform.forward, transform.forward, out hit, Mathf.Infinity, 1 << layer)) {
+		if (Physics.Raycast (transform.position, transform.forward, out hit, Mathf.Infinity)) {
+			if (hit.transform.gameObject.layer != gameObject.layer) return;
 			EntityAI ai = hit.transform.GetComponent<EntityAI> ();
 			if (ai == null) {
 				PlayerControls player = hit.transform.GetComponent<PlayerControls> ();

@@ -38,9 +38,16 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount) {
-    	health -= amount;
-		guiManager.SetHealth(health);
+    public void TakeDamage (int amount)
+	{
+		if (armour > amount) {
+			armour -= amount;
+		} else {
+			armour = 0;
+			health -= amount;
+			guiManager.SetHealth(health);
+		}
+		guiManager.SetArmour(armour);
     }
 
     private void UpdateGUIStats() {

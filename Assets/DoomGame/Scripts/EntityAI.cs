@@ -7,6 +7,7 @@ public class EntityAI : MonoBehaviour {
 	private const float AIUpdateRate = 0.1f;
 	private const float targetDistance = 150;
 
+	[SerializeField] private AIStrategy aiStrategy = AIStrategy.GuardPoint;
 	[SerializeField] private float moveSpeed = 5;
 	[SerializeField] private float attackDistance = 5;
 	[SerializeField] private int health = 10;
@@ -30,8 +31,12 @@ public class EntityAI : MonoBehaviour {
 		}
 	}
 
-	public void DoAttack() {
+	public void DoRaycastHit() {
 		
+	}
+
+	public void FireProjectile(GameObject prefab) {
+		GameObject.Instantiate(prefab, transform.position + transform.forward, Quaternion.identity);
 	}
 
 	public void StopMovement() {
@@ -64,17 +69,32 @@ public class EntityAI : MonoBehaviour {
 				Vector3 targetPos = Camera.main.transform.position;
 				targetPos.y = transform.position.y;
 
-				if (Vector3.Distance (transform.position, targetPos) < targetDistance && Vector3.Distance (transform.position, targetPos) > attackDistance) {
+				if (Vector3.Distance (transform.position, targetPos) < attackDistance) {
 					transform.LookAt (targetPos);
-					animator.SetAnimationSet ("MOVE");
-					isMoving = true;
-				} else {
 					animator.SetAnimationSet ("ATTACK");
 					isMoving = false;
+				} else {
+					switch (aiStrategy) {
+						case AIStrategy.GuardPoint:
+							animator.SetAnimationSet ("IDLE");
+						break;
+						case AIStrategy.FollowPlayer:
+							if (Vector3.Distance (transform.position, targetPos) < targetDistance) {
+								transform.LookAt (targetPos);
+								animator.SetAnimationSet ("MOVE");
+								isMoving = true;
+							}
+						break;
+					}
 				}
 			}
 
 			StartCoroutine (UpdateAI ());
 		}
+	}
+
+	private enum AIStrategy {
+		GuardPoint,
+		FollowPlayer
 	}
 }

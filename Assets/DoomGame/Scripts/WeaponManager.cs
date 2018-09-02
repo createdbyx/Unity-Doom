@@ -206,7 +206,11 @@ public class WeaponManager : MonoBehaviour {
 		if (HitEntity (distance, out hitObjects)) {
 			foreach (GameObject go in hitObjects) {
 				if (entityLayer.Contains (go.layer)) {
-					go.GetComponent<EntityAI> ().DamageEntity (damage);
+					try {
+						go.GetComponent<EntityAI> ().DamageEntity (damage);
+					} catch {
+						Debug.LogError("Invalid object with Entity layer: " + go.name);
+					}
 				}
 			}
 		}

@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5616b0641320654fa13e55f85f546ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupType: 1
+  target: 
   strength: 200
   maxVal: 200
-  pickupType: 1
+  toggle: 0
   pickupSound: DSITEMUP
 --- !u!114 &114811672093205294
 MonoBehaviour:

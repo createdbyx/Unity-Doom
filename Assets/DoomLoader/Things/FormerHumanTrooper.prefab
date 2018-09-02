@@ -458,7 +458,7 @@ MonoBehaviour:
               m_BoolArgument: 0
             m_CallState: 2
           - m_Target: {fileID: 114452660033895212}
-            m_MethodName: DoAttack
+            m_MethodName: DoRaycastHit
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -513,8 +513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75df1703dcd59c4c86fc8ecaec0bf50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiStrategy: 1
   moveSpeed: 5
-  attackDistance: 5
+  attackDistance: 20
   health: 10
   deadLayer: Ignore Raycast
 --- !u!114 &114721535621290212

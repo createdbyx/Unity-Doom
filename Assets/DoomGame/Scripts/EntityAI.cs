@@ -5,12 +5,13 @@ using UnityEngine;
 public class EntityAI : MonoBehaviour {
 
 	private const float AIUpdateRate = 0.1f;
-	private const float targetDistance = 150;
+	private const float targetDistance = 50;
 
 	[SerializeField] private AIStrategy aiStrategy = AIStrategy.GuardPoint;
 	[SerializeField] private float moveSpeed = 5;
 	[SerializeField] private float attackDistance = 5;
 	[SerializeField] private int health = 10;
+	[SerializeField] private int attackDamage = 1;
 	[SerializeField] private string deadLayer = "";
 
 	private EntityAnimator animator;
@@ -31,12 +32,37 @@ public class EntityAI : MonoBehaviour {
 		}
 	}
 
-	public void DoRaycastHit() {
-		
+	public void DoRaycastHit ()
+	{
+		Vector3 targetPos = Camera.main.transform.position;
+		targetPos.y = transform.position.y;
+		transform.LookAt(targetPos);
+		Debug.DrawLine(transform.position + transform.up * 1, transform.position + transform.up * 1 + (transform.forward * 15), Color.red, 0.2f);
+
+		int layer = LayerMask.NameToLayer("Entity");
+		Debug.Log(LayerMask.LayerToName(layer));
+
+
+		RaycastHit hit;
+		if (Physics.Raycast (transform.position + transform.forward, transform.forward, out hit, Mathf.Infinity, 1 << layer)) {
+			EntityAI ai = hit.transform.GetComponent<EntityAI> ();
+			if (ai == null) {
+				PlayerControls player = hit.transform.GetComponent<PlayerControls> ();
+				if (player == null) {
+					Debug.Log ("Invalid Object set to Entity Layer: " + hit.transform.name);
+				}
+				player.TakeDamage (attackDamage);
+			} else {
+				ai.DamageEntity(attackDamage);
+			}
+		}
+		targetPos.y = Camera.main.transform.position.y;
+		transform.LookAt(targetPos);
 	}
 
 	public void FireProjectile(GameObject prefab) {
-		GameObject.Instantiate(prefab, transform.position + transform.forward, Quaternion.identity);
+		GameObject go = GameObject.Instantiate(prefab, transform.position + transform.forward + (transform.up * 0.5f), Quaternion.identity);
+		go.transform.LookAt(Camera.main.transform.position);
 	}
 
 	public void StopMovement() {
@@ -68,7 +94,7 @@ public class EntityAI : MonoBehaviour {
 			if (!movementOverride) {
 				Vector3 targetPos = Camera.main.transform.position;
 				targetPos.y = transform.position.y;
-
+				// TODO: Raycast to find if we can actually see player
 				if (Vector3.Distance (transform.position, targetPos) < attackDistance) {
 					transform.LookAt (targetPos);
 					animator.SetAnimationSet ("ATTACK");

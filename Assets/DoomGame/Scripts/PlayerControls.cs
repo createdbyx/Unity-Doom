@@ -38,6 +38,11 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int amount) {
+    	health -= amount;
+		guiManager.SetHealth(health);
+    }
+
     private void UpdateGUIStats() {
 		guiManager.SetAmmo(weaponManager.CurrentAmmo);
 		guiManager.SetHealth(health);

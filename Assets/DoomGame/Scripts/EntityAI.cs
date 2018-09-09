@@ -204,8 +204,6 @@ public class EntityAI : MonoBehaviour {
 		for (int i = 0; i < 360; i += 10) {
 			Vector3 point = Camera.main.transform.position + (Vector3.down * 1.15f);
 			transform.LookAt (point);
-
-			Debug.DrawRay (transform.position, transform.forward, Color.green, 1);
 			canSeePlayer = CanSeeEntity (out p);
 			if (canSeePlayer) {
 				return;

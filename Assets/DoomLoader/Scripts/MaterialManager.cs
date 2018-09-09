@@ -34,8 +34,8 @@ public class MaterialManager : MonoBehaviour
 
         MaterialOverride mo = OverrideWallMaterials[textureName];
 
-        if (mo.layer != -1)
-            gameObject.layer = mo.layer;
+        //if (mo.layer != -1)
+            //gameObject.layer = mo.layer;
 
         if (mo.material != null)
             mr.material = mo.material;
@@ -60,7 +60,7 @@ public class MaterialManager : MonoBehaviour
 
         MaterialOverride mo = OverrideFlatMaterials[textureName];
 
-        gameObject.layer = mo.layer;
+        //gameObject.layer = mo.layer;
 
         if (mo.material != null)
             mr.material = mo.material;

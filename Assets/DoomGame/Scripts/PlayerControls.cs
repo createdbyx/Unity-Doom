@@ -144,33 +144,4 @@ public class PlayerControls : MonoBehaviour
 		}
 		StartCoroutine(CheckForDamageZone());
 	}
-
-	void OnCollisionEnter (Collision coll)
-	{
-	//Debug.Log("Enter Anything");
-		if (damageLayer.Contains (coll.gameObject.layer)) {
-			Debug.Log ("Enter");
-		}
-	}
-
-    void OnCollisionStay (Collision coll)
-	{
-		//Debug.Log ("Stay Anything");
-		//if (!isInDamageZone)
-		if (damageLayer.Contains (coll.gameObject.layer)) {
-			Debug.Log ("Stay");
-			isInDamageZone = true;
-			damageCoroutine = StartCoroutine (ZoneDamage (1, 5));
-		} else {
-			Debug.Log(LayerMask.LayerToName(coll.gameObject.layer) + " : " + coll.gameObject.name);
-		}
-	}
-
-    void OnCollisionExit (Collision coll)
-	{
-		if (damageLayer.Contains (coll.gameObject.layer)) {
-			isInDamageZone = false;
-			StopCoroutine(damageCoroutine);
-		}
-    }
 }

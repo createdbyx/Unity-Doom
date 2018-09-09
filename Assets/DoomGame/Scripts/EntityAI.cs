@@ -18,6 +18,7 @@ public class EntityAI : MonoBehaviour {
 	private bool isMoving = false;
 	private bool isDead = false;
 	private bool movementOverride = false;
+	private bool canSeePlayer = false;
 
 	// Use this for initialization
 	void Start () {
@@ -27,34 +28,22 @@ public class EntityAI : MonoBehaviour {
 
 	void Update ()
 	{
-		if (!isDead && isMoving && !movementOverride) {
+		if (!isDead && isMoving && !movementOverride && canSeePlayer) {
 			transform.position = Vector3.MoveTowards (transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
 		}
 	}
 
 	public void DoRaycastHit ()
 	{
-		Vector3 targetPos = Camera.main.transform.position;
-		targetPos.y = transform.position.y;
-		transform.LookAt(targetPos);
-		Debug.DrawLine(transform.position + transform.up * 1, transform.position + transform.up * 1 + (transform.forward * 15), Color.red, 0.2f);
-
-		RaycastHit hit;
-		if (Physics.Raycast (transform.position, transform.forward, out hit, Mathf.Infinity)) {
-			if (hit.transform.gameObject.layer != gameObject.layer) return;
-			EntityAI ai = hit.transform.GetComponent<EntityAI> ();
-			if (ai == null) {
-				PlayerControls player = hit.transform.GetComponent<PlayerControls> ();
-				if (player == null) {
-					Debug.Log ("Invalid Object set to Entity Layer: " + hit.transform.name);
-				}
-				player.TakeDamage (attackDamage);
-			} else {
+		PlayerControls player;
+		if (CanSeeEntity (out player)) {
+			player.TakeDamage (attackDamage);
+		} else {
+			EntityAI ai;
+			if (CanSeeEntity (out ai)) {
 				ai.DamageEntity(attackDamage);
 			}
 		}
-		targetPos.y = Camera.main.transform.position.y;
-		transform.LookAt(targetPos);
 	}
 
 	public void FireProjectile(GameObject prefab) {
@@ -83,36 +72,144 @@ public class EntityAI : MonoBehaviour {
 			animator.SetAnimationSet("HIT");
 		}
 	}
+
+	// Raycast for player
+	private bool CanSeeEntity (out PlayerControls entity) {
+		GameObject go;
+		if (EntityRaycast (out go)) {
+			entity = go.GetComponent<PlayerControls> ();
+			if (entity != null) {
+				return true;
+			}
+		}
+		entity = null;
+		return false;
+	}
+
+	// raycast for enemy
+	private bool CanSeeEntity (out EntityAI entity) {
+		GameObject go;
+		if (EntityRaycast (out go)) {
+			entity = go.GetComponent<EntityAI> ();
+			if (entity != null) {
+				return true;
+			}
+		}
+		entity = null;
+		return false;
+	}
+
+	// General raycast for Enemies & player returning a GameObject
+	private bool EntityRaycast (out GameObject go)
+	{
+		go = null;
+		RaycastHit hit;
+		if (Physics.Raycast (transform.position + transform.up, transform.forward, out hit, Mathf.Infinity)) {
+			if (hit.transform.gameObject.layer == gameObject.layer) {
+				go = hit.transform.gameObject;
+			}
+			#if UNITY_EDITOR
+			Debug.DrawLine (transform.position + transform.up, hit.point, Color.red, 0.2f);
+			#endif
+		}
+		#if UNITY_EDITOR
+		else {
+			Debug.DrawLine (transform.position + transform.up, transform.position + transform.up + (transform.forward * 15), Color.red, 0.2f);
+		}
+		#endif
+
+		return go != null;
+	}
 	
 	private IEnumerator UpdateAI ()
 	{
 		yield return new WaitForSeconds (AIUpdateRate);
 		if (!isDead) {
 			if (!movementOverride) {
+
+				Vector3 originalDir = transform.forward;
 				Vector3 targetPos = Camera.main.transform.position;
 				targetPos.y = transform.position.y;
-				// TODO: Raycast to find if we can actually see player
-				if (Vector3.Distance (transform.position, targetPos) < attackDistance) {
-					transform.LookAt (targetPos);
-					animator.SetAnimationSet ("ATTACK");
-					isMoving = false;
+
+				// Attack player if within distance, otherwise see what AI strat says
+				if (canSeePlayer && Vector3.Distance (transform.position, targetPos) < attackDistance) {
+					AI_Attack (targetPos);
 				} else {
-					switch (aiStrategy) {
-						case AIStrategy.GuardPoint:
-							animator.SetAnimationSet ("IDLE");
-						break;
-						case AIStrategy.FollowPlayer:
-							if (Vector3.Distance (transform.position, targetPos) < targetDistance) {
-								transform.LookAt (targetPos);
-								animator.SetAnimationSet ("MOVE");
-								isMoving = true;
-							}
-						break;
-					}
+					AI_Switch (targetPos);
+				}
+
+				if (!canSeePlayer) {
+					// look back to original position
+					transform.LookAt (originalDir);
 				}
 			}
 
 			StartCoroutine (UpdateAI ());
+		}
+	}
+
+	private void AI_Switch (Vector3 targetPos)
+	{
+		switch (aiStrategy) {
+		case AIStrategy.GuardPoint:
+			AI_Idle();
+			break;
+		case AIStrategy.FollowPlayer:
+			AI_FollowPlayer(targetPos);
+			break;
+		}
+	}
+
+	private void AI_Idle () {
+		animator.SetAnimationSet ("IDLE");
+		AI_LookForPlayer();
+	}
+
+	private void AI_FollowPlayer (Vector3 targetPos)
+	{
+		// raycast around to see if we can find the player
+		if (!canSeePlayer) {
+			AI_LookForPlayer();
+		}
+
+		if (canSeePlayer) { // Move towards a found player
+			if (Vector3.Distance (transform.position, targetPos) < targetDistance) {
+				transform.LookAt (targetPos);
+				animator.SetAnimationSet ("MOVE");
+				isMoving = true;
+				canSeePlayer = true;
+			} else { // too far away - stay idle
+				AI_Idle();
+			}
+		}
+	}
+
+	private void AI_Attack(Vector3 targetPos) {
+
+		PlayerControls p; // raycast ahead to see if we can shoot
+		if (CanSeeEntity (out p)) {
+			transform.LookAt (targetPos);
+			animator.SetAnimationSet ("ATTACK");
+			isMoving = false;
+			canSeePlayer = true;
+		} else if (canSeePlayer) { // we can't shoot, revert back to AI start
+			AI_Switch(targetPos);
+		}
+	}
+
+	// Raycast towards player to see if in line of sight and start attacking
+	private void AI_LookForPlayer ()
+	{
+		PlayerControls p;
+		for (int i = 0; i < 360; i += 10) {
+			Vector3 point = Camera.main.transform.position + (Vector3.down * 1.15f);
+			transform.LookAt (point);
+
+			Debug.DrawRay (transform.position, transform.forward, Color.green, 1);
+			canSeePlayer = CanSeeEntity (out p);
+			if (canSeePlayer) {
+				return;
+			}
 		}
 	}
 

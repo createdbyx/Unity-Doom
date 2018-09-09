@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerControls : MonoBehaviour 
 {
@@ -10,9 +11,14 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private GUIManager guiManager = null;
     [SerializeField] private AudioSource oofAudio = null;
     [SerializeField] private LayerMask pickupLayer = 0;
+    [SerializeField] private LayerMask damageLayer = 0;
+
+	private bool isInDamageZone = false;
+	private Coroutine damageCoroutine;
 
     void Start() {
 		Invoke("UpdateGUIStats", 0.15f);
+		StartCoroutine(CheckForDamageZone());
     }
 
     void Update ()
@@ -106,11 +112,65 @@ public class PlayerControls : MonoBehaviour
 		return false;
 	}
 
+	private IEnumerator ZoneDamage (float updateRate, int damage)
+	{
+		yield return new WaitForSeconds (updateRate);
+		if (isInDamageZone) {
+			TakeDamage(damage);
+			damageCoroutine = StartCoroutine(ZoneDamage(1, 5));
+		}
+	}
+
     void OnTriggerEnter (Collider coll)
 	{
 		if (pickupLayer.Contains (coll.gameObject.layer)) {
 			Pickup p = coll.GetComponent<Pickup>();
 			HandlePickup(p);
+		}
+	}
+
+	private IEnumerator CheckForDamageZone ()
+	{
+		yield return new WaitForSeconds (0.1f);
+		RaycastHit hit;
+		if (Physics.Raycast (transform.position, -transform.up, out hit, 1, damageLayer)) {
+			if (!isInDamageZone) {
+				isInDamageZone = true;
+				damageCoroutine = StartCoroutine (ZoneDamage (0.5f, 2));
+			}
+		} else if (isInDamageZone) {
+			isInDamageZone = false;
+			StopCoroutine(damageCoroutine);
+		}
+		StartCoroutine(CheckForDamageZone());
+	}
+
+	void OnCollisionEnter (Collision coll)
+	{
+	//Debug.Log("Enter Anything");
+		if (damageLayer.Contains (coll.gameObject.layer)) {
+			Debug.Log ("Enter");
+		}
+	}
+
+    void OnCollisionStay (Collision coll)
+	{
+		//Debug.Log ("Stay Anything");
+		//if (!isInDamageZone)
+		if (damageLayer.Contains (coll.gameObject.layer)) {
+			Debug.Log ("Stay");
+			isInDamageZone = true;
+			damageCoroutine = StartCoroutine (ZoneDamage (1, 5));
+		} else {
+			Debug.Log(LayerMask.LayerToName(coll.gameObject.layer) + " : " + coll.gameObject.name);
+		}
+	}
+
+    void OnCollisionExit (Collision coll)
+	{
+		if (damageLayer.Contains (coll.gameObject.layer)) {
+			isInDamageZone = false;
+			StopCoroutine(damageCoroutine);
 		}
     }
 }

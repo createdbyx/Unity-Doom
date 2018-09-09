@@ -27,15 +27,16 @@ public class MaterialManager : MonoBehaviour
             OverrideFlatMaterials.Add(mo.overrideName, mo);
     }
 
-    public bool OverridesWall(string textureName, GameObject gameObject, MeshRenderer mr)
-    {
-        if (!OverrideWallMaterials.ContainsKey(textureName))
-            return false;
+    public bool OverridesWall (string textureName, GameObject gameObject, MeshRenderer mr)
+	{
+		if (!OverrideWallMaterials.ContainsKey (textureName))
+			return false;
 
-        MaterialOverride mo = OverrideWallMaterials[textureName];
+		MaterialOverride mo = OverrideWallMaterials [textureName];
 
-        //if (mo.layer != -1)
-            //gameObject.layer = mo.layer;
+		//if (mo.layer != -1)
+		//gameObject.layer = mo.layer;
+
 
         if (mo.material != null)
             mr.material = mo.material;
@@ -53,14 +54,16 @@ public class MaterialManager : MonoBehaviour
         return true;
     }
 
-    public bool OverridesFlat(string textureName, GameObject gameObject, MeshRenderer mr)
-    {
-        if (!OverrideFlatMaterials.ContainsKey(textureName))
-            return false;
+    public bool OverridesFlat (string textureName, GameObject gameObject, MeshRenderer mr)
+	{
+		if (!OverrideFlatMaterials.ContainsKey (textureName))
+			return false;
 
-        MaterialOverride mo = OverrideFlatMaterials[textureName];
+		MaterialOverride mo = OverrideFlatMaterials [textureName];
 
-        //gameObject.layer = mo.layer;
+		if (mo.overrideName.Contains ("NUKAGE")) {
+			gameObject.layer = LayerMask.NameToLayer("NUKAGE");
+		}
 
         if (mo.material != null)
             mr.material = mo.material;

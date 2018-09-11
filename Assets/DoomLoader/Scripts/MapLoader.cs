@@ -411,6 +411,9 @@ public class MapLoader : MonoBehaviour
                         List<Platform88Controller> linked = new List<Platform88Controller>(); 
                         foreach (Sector sector in Sector.TaggedSectors[l.lineTag])
                         {
+                        	// hacky handling for a scene reload - I don't actually understand why we're getting here *after* we've cleared the linedefs it's looping through
+							if (sector.floorObject == null) return;
+
                             sector.floorObject.transform.SetParent(holder);
 
                             Platform88Controller script = sector.floorObject.GetComponent<Platform88Controller>();

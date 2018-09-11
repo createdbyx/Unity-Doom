@@ -26,7 +26,7 @@ public class PlayerControls : MonoBehaviour
 	private Coroutine damageCoroutine;
 
     void Start() {
-		Invoke("UpdateGUIStats", 0.15f);
+		Invoke("UpdateGUIStats", 0);
 		StartCoroutine(CheckForDamageZone());
 		controller = GetComponent<CharacterController> ();
     }

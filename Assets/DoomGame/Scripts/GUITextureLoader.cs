@@ -10,12 +10,12 @@ public class GUITextureLoader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rawImage = GetComponent<RawImage>();
-		StartCoroutine(SetTextureWait(textureId));
+		Invoke("Initialise", 0);
 	}
 
-	private IEnumerator SetTextureWait (string id) {
-		yield return new WaitForEndOfFrame();
-		SetTexture(id);
+	private void Initialise () {
+		SetTexture(textureId);
+		rawImage.color = Color.white;
 	}
 
 	public void SetTexture (string id)

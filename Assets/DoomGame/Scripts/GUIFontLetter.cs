@@ -14,12 +14,12 @@ public class GUIFontLetter : MonoBehaviour {
 	void Start () {
 		rawImage = GetComponent<RawImage>();
 		if (loadOnStart)
-		StartCoroutine(SetLetterWait(letter, fontType, 0.1f));
+		Invoke("Initialise", 0);
 	}
 
-	private IEnumerator SetLetterWait (string letter_, FontLoader.FontType fontType_, float wait) {
-		yield return new WaitForSeconds(wait);
-		SetLetter(letter_, fontType_);
+	private void Initialise () {
+		SetLetter(letter, fontType);
+		rawImage.color = Color.white;
 	}
 
 	public void SetLetter (string letter_, FontLoader.FontType fontType_) {
@@ -27,11 +27,13 @@ public class GUIFontLetter : MonoBehaviour {
 		rawImage.SetNativeSize();
 		letter = letter_;
 		fontType = fontType_;
+		rawImage.color = Color.white;
 	}
 
 	public void SetLetter (string letter_) {
 		rawImage.texture = FontLoader.GetTexture(letter_, fontType);
 		rawImage.SetNativeSize();
 		letter = letter_;
+		rawImage.color = Color.white;
 	}
 }

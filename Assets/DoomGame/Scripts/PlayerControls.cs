@@ -102,6 +102,7 @@ public class PlayerControls : MonoBehaviour
 		case Pickup.PickupType.Health:
 			if (AddPickupValue (p.strength, p.maxVal, ref health)) {
 				p.DoPickup ();
+				faceManager.UpdateFace(health);
 			}
 			break;
 		case Pickup.PickupType.Armour:

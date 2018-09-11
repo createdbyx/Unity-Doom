@@ -1,34 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerControls : MonoBehaviour 
 {
+	[Header("Player Stats")]
 	[SerializeField] private int health = 100;
 	[SerializeField] private int armour = 0;
 	[SerializeField] private float speed = 8.0F;
 	[SerializeField] private float rotateSpeed = 1.0F;
+	[Header("Managers")]
 	[SerializeField] private WeaponManager weaponManager = null;
 	[SerializeField] private GUIManager guiManager = null;
+	[Header("References")]
     [SerializeField] private AudioSource oofAudio = null;
+    [Header("--UI")]
+    [SerializeField] private GameObject gameOverScreen = null;
+    [Header("Layers")]
     [SerializeField] private LayerMask pickupLayer = 0;
     [SerializeField] private LayerMask damageLayer = 0;
 
+	CharacterController controller;
 	private bool isInDamageZone = false;
 	private Coroutine damageCoroutine;
 
     void Start() {
 		Invoke("UpdateGUIStats", 0.15f);
 		StartCoroutine(CheckForDamageZone());
+		controller = GetComponent<CharacterController> ();
     }
 
     void Update ()
 	{
-		CharacterController controller = GetComponent<CharacterController> ();
+		if (health == 0) return;
+
+		// Move Character
 		transform.Rotate (0, Input.GetAxis ("Horizontal") * rotateSpeed, 0);
 		Vector3 forward = transform.TransformDirection (Vector3.forward);
 		float curSpeed = speed * Input.GetAxis ("Vertical");
 		controller.SimpleMove (forward * curSpeed);
 
+		// Use Item
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			Ray ray = new Ray (transform.position, transform.forward);
 
@@ -42,18 +54,38 @@ public class PlayerControls : MonoBehaviour
 				}
             }
         }
+
+		// Shoot
+		if (Input.GetMouseButtonDown (0)) {
+			weaponManager.Shoot();
+		}
+
+		// Switch Weapons - is there a better way to do this?
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			weaponManager.SetSelectedWeapon(0);
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			weaponManager.SetSelectedWeapon(1);
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha3)) {
+			weaponManager.SetSelectedWeapon(2);
+		}
     }
 
     public void TakeDamage (int amount)
 	{
-		if (armour > amount) {
-			armour -= amount;
-		} else {
-			armour = 0;
-			health -= amount;
-			guiManager.SetHealth(health);
+		if (health > 0) {
+			if (armour > amount) {
+				armour -= amount;
+			} else {
+				armour = 0;
+				health -= amount;
+				guiManager.SetHealth (health);
+			}
+			guiManager.SetArmour (armour);
+		} else { // We dead, inform user
+			gameOverScreen.SetActive(true);
 		}
-		guiManager.SetArmour(armour);
     }
 
     private void UpdateGUIStats() {

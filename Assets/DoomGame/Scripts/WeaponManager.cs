@@ -31,24 +31,9 @@ public class WeaponManager : MonoBehaviour {
 		Invoke("InitWeapon", 0); // wait a frame to be sure that the texture loader has initialised
 	}
 
-	void Update ()
-	{
-		// Shoot
-		if (Input.GetMouseButtonDown (0)) {
-			if (animIdx == 0 && (GetAmmo(weaponTypes[weaponIdx].name) != 0 || weaponTypes [weaponIdx].ammoType == AmmoType.UNLM)) {
-				PlayShootAnimation ();
-			}
-		}
-
-		// Switch Weapons - is there a better way to do this?
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			SetSelectedWeapon(0);
-		}
-		if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			SetSelectedWeapon(1);
-		}
-		if (Input.GetKeyDown (KeyCode.Alpha3)) {
-			SetSelectedWeapon(2);
+	public void Shoot () {
+		if (animIdx == 0 && (GetAmmo(weaponTypes[weaponIdx].name) != 0 || weaponTypes [weaponIdx].ammoType == AmmoType.UNLM)) {
+			PlayShootAnimation ();
 		}
 	}
 

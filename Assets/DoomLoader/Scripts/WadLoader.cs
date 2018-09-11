@@ -52,6 +52,10 @@ public class WadLoader : MonoBehaviour
                 //PlayerObject.GetComponent<AudioSource>().clip = SoundLoader.LoadSound("DSPISTOL");
                 //PlayerObject.GetComponent<AudioSource>().Play();
             }
+	}
+
+    public void ReloadScene() {
+    	Doom.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
     }
 
     public bool Load(string file)

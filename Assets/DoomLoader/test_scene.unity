@@ -4024,6 +4024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1598580831}
   - component: {fileID: 1598580833}
+  - component: {fileID: 1598580835}
   - component: {fileID: 1598580834}
   - component: {fileID: 1598580832}
   m_Layer: 5
@@ -4095,6 +4096,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textureId: STFST01
+--- !u!114 &1598580835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1598580830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2255f7178ce4c4f910f209910bab9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faces:
+  - healthAmount: 100
+    centre: STFST01
+    right: STFST00
+    left: STFST02
+  - healthAmount: 75
+    centre: STFST11
+    right: STFST10
+    left: STFST12
+  - healthAmount: 50
+    centre: STFST21
+    right: STFST20
+    left: STFST22
+  - healthAmount: 25
+    centre: STFST31
+    right: STFST30
+    left: STFST32
+  - healthAmount: 0
+    centre: STFST41
+    right: STFST40
+    left: STFST42
 --- !u!1 &1643910979
 GameObject:
   m_ObjectHideFlags: 0
@@ -4164,6 +4197,7 @@ MonoBehaviour:
   rotateSpeed: 2
   weaponManager: {fileID: 1643910984}
   guiManager: {fileID: 1274381362}
+  faceManager: {fileID: 1598580835}
   oofAudio: {fileID: 92998126}
   gameOverScreen: {fileID: 1031307925}
   pickupLayer:

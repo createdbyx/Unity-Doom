@@ -12,6 +12,7 @@ public class PlayerControls : MonoBehaviour
 	[Header("Managers")]
 	[SerializeField] private WeaponManager weaponManager = null;
 	[SerializeField] private GUIManager guiManager = null;
+	[SerializeField] private FaceManager faceManager = null;
 	[Header("References")]
     [SerializeField] private AudioSource oofAudio = null;
     [Header("--UI")]
@@ -83,6 +84,7 @@ public class PlayerControls : MonoBehaviour
 				guiManager.SetHealth (health);
 			}
 			guiManager.SetArmour (armour);
+			faceManager.UpdateFace(health);
 		} else { // We dead, inform user
 			gameOverScreen.SetActive(true);
 		}

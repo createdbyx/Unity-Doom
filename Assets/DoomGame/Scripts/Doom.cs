@@ -14,7 +14,7 @@ public static class Doom {
 	}
 	public static void LoadScene (Scene scene) {
 		UnloadCurrentWad();
-		SceneManager.LoadScene(scene);
+		SceneManager.LoadScene(scene.buildIndex);
 	}
 
 	public static void UnloadCurrentWad ()

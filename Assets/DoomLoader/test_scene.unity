@@ -4236,6 +4236,9 @@ MonoBehaviour:
   entityLayer:
     serializedVersion: 2
     m_Bits: 256
+  explosiveLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   ammo:
   - ammoType: 0
     currentAmmo: 50

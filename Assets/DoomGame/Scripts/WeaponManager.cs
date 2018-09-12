@@ -11,6 +11,7 @@ public class WeaponManager : MonoBehaviour {
 	[SerializeField] private GUIManager guiManager = null;
 	[SerializeField] private AudioSource audioSource = null;
 	[SerializeField] private LayerMask entityLayer = 0;
+	[SerializeField] private LayerMask explosiveLayer = 0;
 	[SerializeField] private AmmoConfig[] ammo = null;
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
@@ -194,7 +195,15 @@ public class WeaponManager : MonoBehaviour {
 					try {
 						go.GetComponent<EntityAI> ().DamageEntity (damage);
 					} catch {
-						Debug.LogError("Invalid object with Entity layer: " + go.name);
+						Debug.LogError ("Invalid object with Entity layer: " + go.name);
+					}
+					return;
+				}
+				if (explosiveLayer.Contains (go.layer)) {
+					try {
+						go.GetComponent<ExplosionObject> ().TakeDamage (damage);
+					} catch {
+						Debug.LogError ("Invalid object with Explosive layer: " + go.name);
 					}
 				}
 			}

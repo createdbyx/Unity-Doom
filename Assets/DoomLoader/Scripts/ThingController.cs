@@ -81,6 +81,10 @@ public class ThingController : MonoBehaviour
 		materialProperties.SetFloat("_ScaleY", input);
 	}
 
+	public void SetWidth(float input) {
+		materialProperties.SetFloat("_ScaleX", input);
+	}
+
     public void SetSpriteDirection (int input) {
 		if (input > 0) {
 			transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y,1);

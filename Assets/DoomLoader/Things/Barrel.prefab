@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33377394659280260}
   - component: {fileID: 136987856792794354}
   - component: {fileID: 23956495334945750}
+  - component: {fileID: 114804667530730476}
   - component: {fileID: 114811672093205294}
   - component: {fileID: 114585601703713286}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +54,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -68,6 +70,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -101,6 +104,36 @@ MonoBehaviour:
   - BAR1B0
   oscillates: 0
   direction: 1
+--- !u!114 &114804667530730476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274280178394502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404d3deaa74474c42a970731a87403bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  damage: 5
+  radius: 2
+  frames:
+  - BEXPA0
+  - BEXPB0
+  - BEXPC0
+  - BEXPD0
+  - BEXPE0
+  scales:
+  - {x: 1, y: 1}
+  - {x: 1, y: 1}
+  - {x: 1.25, y: 1}
+  - {x: 1.75, y: 1.25}
+  - {x: 2.5, y: 1.25}
+  damageFrame: 3
+  entityLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114811672093205294
 MonoBehaviour:
   m_ObjectHideFlags: 1

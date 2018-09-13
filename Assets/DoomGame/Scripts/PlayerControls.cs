@@ -15,8 +15,6 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private FaceManager faceManager = null;
 	[Header("References")]
     [SerializeField] private AudioSource oofAudio = null;
-    [Header("--UI")]
-    [SerializeField] private GameObject gameOverScreen = null;
     [Header("Layers")]
     [SerializeField] private LayerMask pickupLayer = 0;
     [SerializeField] private LayerMask damageLayer = 0;
@@ -33,7 +31,14 @@ public class PlayerControls : MonoBehaviour
 
     void Update ()
 	{
-		if (health == 0) return;
+		if (health == 0) {
+			transform.GetChild (0).localPosition = Vector3.MoveTowards (transform.GetChild (0).localPosition, new Vector3 (0, -0.5f, 0), Time.deltaTime);
+			if (Input.GetMouseButtonDown (0)) {
+				Doom.UnloadCurrentWad();
+				WadLoader.Instance.ReloadScene();
+			}
+			return;
+		}
 
 		// Move Character
 		transform.Rotate (0, Input.GetAxis ("Horizontal") * rotateSpeed, 0);
@@ -85,8 +90,6 @@ public class PlayerControls : MonoBehaviour
 			}
 			guiManager.SetArmour (armour);
 			faceManager.UpdateFace(health);
-		} else { // We dead, inform user
-			gameOverScreen.SetActive(true);
 		}
     }
 

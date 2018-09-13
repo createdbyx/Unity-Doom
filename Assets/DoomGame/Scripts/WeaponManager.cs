@@ -95,14 +95,22 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	private void InitWeapon() {
-		SetSelectedWeapon(startWeapon);
+	private void InitWeapon ()
+	{
+		// Set curent selection in Weapon Manager
+		SetSelectedWeapon (startWeapon);
+
+		// check weapon sets and update arms display
+		foreach (WeaponType wt in weaponTypes) {
+			wt.UpdateArmsDisplay();
+		}
 	}
 
 	public void ObtainWeapon(string id, WeaponType.State state) {
 		for (int i = 0; i < weaponTypes.Length; i++) {
 			if (weaponTypes [i].name == id) {
 				weaponTypes [i].state = state;
+				weaponTypes [i].UpdateArmsDisplay();
 				return;
 			}
 		}
@@ -276,6 +284,7 @@ public class WeaponManager : MonoBehaviour {
 		public string idleSprite;
 		public AttackType attackType;
 		public State state;
+		[SerializeField] private Transform armsDisplay;
 		public RawImage weaponImage;
 		public RawImage muzzleImage;
 		[TooltipAttribute("Sprite IDs to play attack animation")]
@@ -290,6 +299,14 @@ public class WeaponManager : MonoBehaviour {
 		public enum State {
 			Normal,
 			Missing
+		}
+
+		public void UpdateArmsDisplay ()
+		{
+			if (armsDisplay != null) {
+				armsDisplay.GetChild(0).gameObject.SetActive(state != State.Missing);
+				armsDisplay.GetChild(1).gameObject.SetActive(state == State.Missing);
+			}
 		}
 	}
 

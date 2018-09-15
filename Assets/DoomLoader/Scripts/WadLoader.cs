@@ -27,7 +27,7 @@ public class WadLoader : MonoBehaviour
 
 		TextureLoader.Instance.LoadAndBuildAll();
 		LoadMap();
-		Doom.player.enabled = false;
+		Invoke("SetPlayerDisabled", 0.1f);
     }
 
     public bool LoadMap() {
@@ -59,7 +59,7 @@ public class WadLoader : MonoBehaviour
                 Debug.LogError("PlayerStart1 == null");
             else
             {
-                PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position + (Vector3.up * 0.88f);
+                PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position;
                 PlayerObject.transform.rotation = PlayerStart.PlayerStarts[0].transform.rotation;
             }
 
@@ -150,5 +150,9 @@ public class WadLoader : MonoBehaviour
         reader.Close();
         stream.Close();
         return true;
+	}
+
+    private void SetPlayerDisabled() {
+		Doom.player.enabled = false;
     }
 }

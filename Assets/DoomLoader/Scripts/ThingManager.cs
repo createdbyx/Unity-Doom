@@ -48,13 +48,4 @@ public class ThingManager : MonoBehaviour
             }
         }
     }
-
-    public static void ClearThings ()
-	{
-		while (Instance.activeThings.Count > 0) {
-			ThingController thing = Instance.activeThings[0];
-			Instance.activeThings.Remove(thing);
-			Destroy(thing.gameObject);
-		}
-    }
 }

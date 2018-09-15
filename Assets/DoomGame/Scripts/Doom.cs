@@ -42,12 +42,13 @@ public static class Doom {
 		TextureLoader.NeedsAlphacut.Clear();
 	}
 
-	public static void UnloadCurrentMap() {
-		MapLoader.vertices.Clear();
-		MapLoader.sectors.Clear();
-		MapLoader.linedefs.Clear();
-		MapLoader.sidedefs.Clear();
-		MapLoader.things.Clear();
+	public static void UnloadCurrentMap ()
+	{
+		MapLoader.vertices.Clear ();
+		MapLoader.sectors.Clear ();
+		MapLoader.linedefs.Clear ();
+		MapLoader.sidedefs.Clear ();
+		MapLoader.things.Clear ();
 
 		MapLoader.things_lump = null;
 		MapLoader.linedefs_lump = null;
@@ -60,7 +61,11 @@ public static class Doom {
 		MapLoader.reject_lump = null;
 		MapLoader.blockmap_lump = null;
 
-		ThingManager.ClearThings();
+		if (WadLoader.Instance != null) {
+			for (int i = WadLoader.Instance.transform.childCount - 1; i >= 0; i--) {
+				GameObject.DestroyImmediate(WadLoader.Instance.transform.GetChild(i).gameObject);
+			}
+		}
 
 		isLoaded = false;
 	}

@@ -199,6 +199,8 @@ public class WeaponManager : MonoBehaviour {
 		GameObject[] hitObjects;
 		if (HitEntity (distance, out hitObjects)) {
 			foreach (GameObject go in hitObjects) {
+				if (go == gameObject) continue;
+
 				if (entityLayer.Contains (go.layer)) {
 					try {
 						go.GetComponent<EntityAI> ().DamageEntity (damage);

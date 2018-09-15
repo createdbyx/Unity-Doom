@@ -49,6 +49,7 @@ public class EntityAI : MonoBehaviour {
 	public void FireProjectile(GameObject prefab) {
 		GameObject go = GameObject.Instantiate(prefab, transform.position + transform.forward + (transform.up * 0.5f), Quaternion.identity);
 		go.transform.LookAt(Camera.main.transform.position);
+		go.GetComponent<Projectile>().AddIgnoreObject(gameObject);
 	}
 
 	public void StopMovement() {

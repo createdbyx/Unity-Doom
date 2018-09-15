@@ -60,6 +60,8 @@ public static class Doom {
 		MapLoader.reject_lump = null;
 		MapLoader.blockmap_lump = null;
 
+		ThingManager.ClearThings();
+
 		isLoaded = false;
 	}
 }

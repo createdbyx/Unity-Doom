@@ -9,6 +9,8 @@ public class ThingManager : MonoBehaviour
 
     private Dictionary<int, GameObject> _things = new Dictionary<int, GameObject>();
 
+	private List<ThingController> activeThings = new List<ThingController>();
+
     void Awake()
     {
         Instance = this;
@@ -42,7 +44,17 @@ public class ThingManager : MonoBehaviour
             {
                 tc.thing = t;
                 tc.Init();
+                activeThings.Add(tc);
             }
         }
+    }
+
+    public static void ClearThings ()
+	{
+		while (Instance.activeThings.Count > 0) {
+			ThingController thing = Instance.activeThings[0];
+			Instance.activeThings.Remove(thing);
+			Destroy(thing.gameObject);
+		}
     }
 }

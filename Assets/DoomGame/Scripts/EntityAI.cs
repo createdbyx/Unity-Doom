@@ -241,6 +241,12 @@ public class EntityAI : MonoBehaviour {
 	// Raycast towards player to see if in line of sight and start attacking
 	private void AI_LookForPlayer ()
 	{
+		// Don't look if beyond range
+		if (Vector3.Distance (transform.position, Camera.main.transform.position) > targetDistance) {
+			canSeePlayer = false;
+			return;
+		}
+
 		PlayerControls p;
 		for (int i = 0; i < 360; i += 10) {
 			Vector3 point = Camera.main.transform.position + (Vector3.down * 1.15f);

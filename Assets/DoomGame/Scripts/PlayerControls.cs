@@ -120,7 +120,7 @@ public class PlayerControls : MonoBehaviour
 			break;
 		case Pickup.PickupType.Ammo:
 			WeaponManager.WeaponType wt = weaponManager.WeaponTypeFromString (p.target);
-			int ammo = 0;
+			int ammo = weaponManager.GetAmmo(wt.ammoType);
 			if (p.maxVal == -1) {
 				ammo += p.strength;
 			} else {

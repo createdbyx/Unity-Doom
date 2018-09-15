@@ -34,6 +34,16 @@ public class WeaponManager : MonoBehaviour {
 		Invoke("InitWeapon", 0); // wait a frame to be sure that the texture loader has initialised
 	}
 
+	public int GetAmmo (AmmoType ammoType)
+	{
+		AmmoConfig conf;
+		if (ammoDict.TryGetValue (ammoType, out conf)) {
+			return conf.currentAmmo;
+		}
+		Debug.LogError("Ammo Type Not Listed: " + ammoType.ToString());
+		return 0;
+	}
+
 	public void Shoot () {
 		if (canShoot)
 		if (animIdx == 0 && (GetAmmo(weaponTypes[weaponIdx].name) != 0 || weaponTypes [weaponIdx].ammoType == AmmoType.UNLM)) {

@@ -14,6 +14,13 @@ public class MenuManager : MonoBehaviour {
 	[Header("Game Parts")]
 	[SerializeField] private GameObject player = null;
 	[SerializeField] private GameObject gameCanvas = null;
+	[SerializeField] private GameObject endCard = null;
+
+	private static MenuManager Instance;
+
+	void Start() {
+		MenuManager.Instance = this;
+	}
 
 	void Update () {
 		if (Doom.isLoaded && Input.GetKeyDown (KeyCode.Escape)) {
@@ -21,6 +28,13 @@ public class MenuManager : MonoBehaviour {
 			Time.timeScale = Doom.isPaused ? 0 : 1;
 			startPanel.SetActive(Doom.isPaused);
 		}
+	}
+
+	public static void EnableEndCard () {
+		Instance.player.SetActive(false);
+		Instance.gameCanvas.SetActive(false);
+		Instance.startCamera.SetActive(true);
+		Instance.endCard.SetActive(true);
 	}
 
 	public void PauseGame() {

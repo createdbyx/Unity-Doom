@@ -8,6 +8,23 @@ public static class Doom {
 	public static bool isPaused = false;
 	public static bool isLoaded = false;
 
+	public static void NextMission ()
+	{
+		if (WadLoader.Instance == null) {
+			Debug.LogError ("WadLoader doesn't exist!");
+			return;
+		}
+		if (MapLoader.vertices.Count == 0) {
+			Debug.LogError ("No Map Loaded, can't load next!");
+			return;
+		}
+		UnloadCurrentMap ();
+		WadLoader.Instance.currentMission++;
+		if (!WadLoader.Instance.LoadMap ()) {
+			MenuManager.EnableEndCard();
+		}
+	}
+
 	public static void LoadScene (string sceneName) {
 		UnloadCurrentWad();
 		UnloadCurrentMap();
@@ -44,22 +61,24 @@ public static class Doom {
 
 	public static void UnloadCurrentMap ()
 	{
-		MapLoader.vertices.Clear ();
-		MapLoader.sectors.Clear ();
-		MapLoader.linedefs.Clear ();
-		MapLoader.sidedefs.Clear ();
-		MapLoader.things.Clear ();
+		if (MapLoader.vertices != null) {
+			MapLoader.vertices.Clear ();
+			MapLoader.sectors.Clear ();
+			MapLoader.linedefs.Clear ();
+			MapLoader.sidedefs.Clear ();
+			MapLoader.things.Clear ();
 
-		MapLoader.things_lump = null;
-		MapLoader.linedefs_lump = null;
-		MapLoader.sidedefs_lump = null;
-		MapLoader.vertexes_lump = null;
-		MapLoader.segs_lump = null;
-		MapLoader.ssectors_lump = null;
-		MapLoader.nodes_lump = null;
-		MapLoader.sectors_lump = null;
-		MapLoader.reject_lump = null;
-		MapLoader.blockmap_lump = null;
+			MapLoader.things_lump = null;
+			MapLoader.linedefs_lump = null;
+			MapLoader.sidedefs_lump = null;
+			MapLoader.vertexes_lump = null;
+			MapLoader.segs_lump = null;
+			MapLoader.ssectors_lump = null;
+			MapLoader.nodes_lump = null;
+			MapLoader.sectors_lump = null;
+			MapLoader.reject_lump = null;
+			MapLoader.blockmap_lump = null;
+		}
 
 		if (WadLoader.Instance != null) {
 			for (int i = WadLoader.Instance.transform.childCount - 1; i >= 0; i--) {

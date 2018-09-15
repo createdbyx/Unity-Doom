@@ -69,7 +69,7 @@ public class MapLoader : MonoBehaviour
                 i++;
             }
 
-            Debug.LogError("MapLoader: Load: Could not find map name \"" + mapName + "\"");
+            Debug.Log("MapLoader: Load: Could not find map name \"" + mapName + "\"");
             return false;
 
         found:

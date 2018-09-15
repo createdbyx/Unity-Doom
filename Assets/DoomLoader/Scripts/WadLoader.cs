@@ -28,11 +28,11 @@ public class WadLoader : MonoBehaviour
 		TextureLoader.Instance.LoadAndBuildAll();
     }
 
-    public void LoadMap() {
-		LoadMap(autoLoadEpisode, currentMission);
+    public bool LoadMap() {
+		return LoadMap(autoLoadEpisode, currentMission);
     }
 
-    public void LoadMap(int episode, int mission)
+    public bool LoadMap(int episode, int mission)
     {
 		if (MapLoader.vertices != null && MapLoader.vertices.Count > 0) Doom.UnloadCurrentMap();
 
@@ -44,29 +44,28 @@ public class WadLoader : MonoBehaviour
 		string map = "E" + autoLoadEpisode.ToString() + "M" + currentMission.ToString();
 
         if (string.IsNullOrEmpty(autoloadWad))
-            return;
+            return false;
 
-		if (MapLoader.Instance.Load(map))
+		if (MapLoader.Instance.Load(map))  {
+            Mesher.Instance.CreateMeshes();
+
+            MapLoader.Instance.ApplyLinedefBehavior();
+
+            ThingManager.Instance.CreateThings(deathmatch);
+
+            if (PlayerStart.PlayerStarts[0] == null)
+                Debug.LogError("PlayerStart1 == null");
+            else
             {
-                Mesher.Instance.CreateMeshes();
-
-                MapLoader.Instance.ApplyLinedefBehavior();
-
-                ThingManager.Instance.CreateThings(deathmatch);
-
-                if (PlayerStart.PlayerStarts[0] == null)
-                    Debug.LogError("PlayerStart1 == null");
-                else
-                {
-                    PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position;
-                    PlayerObject.transform.rotation = PlayerStart.PlayerStarts[0].transform.rotation;
-                }
-
-                //PlayerObject.GetComponent<AudioSource>().clip = SoundLoader.LoadSound("DSPISTOL");
-                //PlayerObject.GetComponent<AudioSource>().Play();
+                PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position;
+                PlayerObject.transform.rotation = PlayerStart.PlayerStarts[0].transform.rotation;
             }
 
-            Doom.isLoaded = true;
+			Doom.isLoaded = true;
+            //PlayerObject.GetComponent<AudioSource>().clip = SoundLoader.LoadSound("DSPISTOL");
+            //PlayerObject.GetComponent<AudioSource>().Play();
+        }
+        return Doom.isLoaded;
 	}
 
 	public void SetCurrentMission(int input) {

@@ -15,6 +15,8 @@ public class WeaponManager : MonoBehaviour {
 	[SerializeField] private AmmoConfig[] ammo = null;
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
+	private bool canShoot = true;
+
 	private Dictionary<AmmoType, AmmoConfig> ammoDict = new Dictionary<AmmoType, AmmoConfig>();
 
 	private int weaponIdx = 0;
@@ -33,6 +35,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void Shoot () {
+		if (canShoot)
 		if (animIdx == 0 && (GetAmmo(weaponTypes[weaponIdx].name) != 0 || weaponTypes [weaponIdx].ammoType == AmmoType.UNLM)) {
 			PlayShootAnimation ();
 		}
@@ -119,14 +122,12 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void SetSelectedWeapon(int idx) {
-		if (weaponTypes [idx].state == WeaponType.State.Missing) return;
+		if (!canShoot || weaponTypes [idx].state == WeaponType.State.Missing) return;
 
-		weaponTypes[weaponIdx].weaponImage.gameObject.SetActive(false);
-
+		weaponTypes[weaponIdx].weaponAnimator.SetBool("up", false);
 		weaponIdx = idx;
-		SetWeaponSprite(weaponTypes [weaponIdx].idleSprite);
-		weaponTypes[weaponIdx].weaponImage.gameObject.SetActive(true);
-		guiManager.SetAmmo(GetAmmo(weaponTypes[weaponIdx].name));
+		canShoot = false;
+		Invoke("GetNextWeapon", 0.5f);
 	}
 
 	public void SetSelectedWeapon (string id)
@@ -139,6 +140,13 @@ public class WeaponManager : MonoBehaviour {
 		}
 		Debug.LogError("Invalid Weapon From ID: " + id);
 		return;
+	}
+
+	private void GetNextWeapon() {
+		SetWeaponSprite(weaponTypes [weaponIdx].idleSprite);
+		weaponTypes[weaponIdx].weaponAnimator.SetBool("up", true);
+		guiManager.SetAmmo(GetAmmo(weaponTypes[weaponIdx].name));
+		canShoot = true;
 	}
 	
 	private void SetWeaponSprite(string weaponID) {
@@ -287,6 +295,7 @@ public class WeaponManager : MonoBehaviour {
 		public AttackType attackType;
 		public State state;
 		[SerializeField] private Transform armsDisplay;
+		public Animator weaponAnimator;
 		public RawImage weaponImage;
 		public RawImage muzzleImage;
 		[TooltipAttribute("Sprite IDs to play attack animation")]

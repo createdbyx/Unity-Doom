@@ -22,7 +22,7 @@ public class WeaponManager : MonoBehaviour {
 	private int animIdx = 0;
 
 	private WeaponType.State[] missionStartWeapons;
-	public int[] missionStartAmmo;
+	private int[] missionStartAmmo;
 
 	public int CurrentAmmo {
 		get {

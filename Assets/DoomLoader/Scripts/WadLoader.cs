@@ -20,17 +20,25 @@ public class WadLoader : MonoBehaviour
     public string autoloadMap = "E1M1";
     public GameObject PlayerObject;
 
-    void Start()
-    {
-        Shader.SetGlobalColor("_AMBIENTLIGHT", ambientLightColor);
+    void Start() {
+		if (!LoadWad(autoloadWad))
+            return;
 
+		TextureLoader.Instance.LoadAndBuildAll();
+    }
+
+    public void LoadMap() {
+    	LoadMap(autoloadMap);
+    }
+
+    public void LoadMap(string map)
+    {
+		if (MapLoader.vertices != null && MapLoader.vertices.Count > 0) Doom.UnloadCurrentMap();
+
+        Shader.SetGlobalColor("_AMBIENTLIGHT", ambientLightColor);
+        autoloadMap = map;
         if (string.IsNullOrEmpty(autoloadWad))
             return;
-
-        if (!Load(autoloadWad))
-            return;
-
-        TextureLoader.Instance.LoadAndBuildAll();
 
         if (!string.IsNullOrEmpty(autoloadMap))
             if (MapLoader.Instance.Load(autoloadMap))
@@ -54,11 +62,15 @@ public class WadLoader : MonoBehaviour
             }
 	}
 
+	public void SetAutoLoadMap(string input) {
+		autoloadMap = input;
+	}
+
     public void ReloadScene() {
     	Doom.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
     }
 
-    public bool Load(string file)
+    public bool LoadWad(string file)
     {
         string path = Application.streamingAssetsPath + "/" + file;
         if (!File.Exists(path))

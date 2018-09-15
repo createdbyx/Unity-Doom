@@ -6,14 +6,17 @@ using UnityEngine.SceneManagement;
 public static class Doom {
 	public static void LoadScene (string sceneName) {
 		UnloadCurrentWad();
+		UnloadCurrentMap();
 		SceneManager.LoadScene(sceneName);
 	}
 	public static void LoadScene (int sceneIdx) {
 		UnloadCurrentWad();
+		UnloadCurrentMap();
 		SceneManager.LoadScene(sceneIdx);
 	}
 	public static void LoadScene (Scene scene) {
 		UnloadCurrentWad();
+		UnloadCurrentMap();
 		SceneManager.LoadScene(scene.buildIndex);
 	}
 
@@ -33,7 +36,9 @@ public static class Doom {
 		TextureLoader.FlatTextures.Clear();
 		TextureLoader.SpriteTextures.Clear();
 		TextureLoader.NeedsAlphacut.Clear();
+	}
 
+	public static void UnloadCurrentMap() {
 		MapLoader.vertices.Clear();
 		MapLoader.sectors.Clear();
 		MapLoader.linedefs.Clear();

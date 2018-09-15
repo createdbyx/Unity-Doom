@@ -51,7 +51,7 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		// Move Character
-		transform.Rotate (0, Input.GetAxis ("Horizontal") * rotateSpeed, 0);
+		weaponManager.transform.Rotate (0, Input.GetAxis ("Horizontal") * rotateSpeed, 0);
 		Vector3 forward = transform.TransformDirection (Vector3.forward);
 		float curSpeed = speed * Input.GetAxis ("Vertical");
 		controller.SimpleMove (forward * curSpeed);

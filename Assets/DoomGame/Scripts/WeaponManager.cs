@@ -122,6 +122,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void SetSelectedWeapon(int idx) {
+		if (idx == weaponIdx) return;
 		if (!canShoot || weaponTypes [idx].state == WeaponType.State.Missing) return;
 
 		weaponTypes[weaponIdx].weaponAnimator.SetBool("up", false);

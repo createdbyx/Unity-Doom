@@ -12,6 +12,7 @@ public class EntityAI : MonoBehaviour {
 	[SerializeField] private float attackDistance = 5;
 	[SerializeField] private int health = 10;
 	[SerializeField] private int attackDamage = 1;
+	[SerializeField] private float timeBetweenShots = 2;
 	[SerializeField] private string deadLayer = "";
 
 	private EntityAnimator animator;
@@ -19,17 +20,41 @@ public class EntityAI : MonoBehaviour {
 	private bool isDead = false;
 	private bool movementOverride = false;
 	private bool canSeePlayer = false;
+	private float shootTimer;
+	private bool isWandering = false;
 
 	// Use this for initialization
 	void Start () {
+		shootTimer = timeBetweenShots;
 		animator = GetComponent<EntityAnimator>();
 		StartCoroutine(UpdateAI());
 	}
 
 	void Update ()
 	{
-		if (!isDead && isMoving && !movementOverride && canSeePlayer) {
-			transform.position = Vector3.MoveTowards (transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
+		// Movement controls for strats
+		switch (aiStrategy) {
+		case AIStrategy.FollowPlayer:
+			if (isWandering) { // move straight forward to wander in previously set direction
+				transform.position += transform.forward * moveSpeed / 2 * Time.deltaTime;
+			} else if (!isDead && isMoving && !movementOverride && canSeePlayer) {
+				// move towards previously set target destination
+				transform.position = Vector3.MoveTowards (transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
+			}
+			break;
+		case AIStrategy.GuardPoint:
+			if (isWandering) {
+				transform.LookAt (Camera.main.transform.position);
+			}
+			break;
+		}
+
+		// Increment Shoot Timer
+		if (isWandering) {
+			shootTimer += Time.deltaTime;
+			if (shootTimer >= timeBetweenShots) {
+				isWandering = false;
+			}
 		}
 	}
 
@@ -57,8 +82,23 @@ public class EntityAI : MonoBehaviour {
 		isMoving = false;
 	}
 
-	public void ResumeMovement() {
+	public void ResumeMovement ()
+	{
 		movementOverride = false;
+		// Prepare for shoot delay movement
+		shootTimer = 0;
+		Invoke("StartWander", 0.1f); // we invoke this otherwise we miss the last frame of animation
+	}
+
+	private void StartWander ()
+	{
+		if (aiStrategy != AIStrategy.GuardPoint) {
+			animator.SetAnimationSet ("MOVE");
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, Random.Range (0, 360), transform.eulerAngles.z);
+		} else {
+			animator.SetAnimationSet ("IDLE");
+		}
+		isWandering = true;
 	}
 
 	public void DamageEntity (int amount)
@@ -126,7 +166,7 @@ public class EntityAI : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (AIUpdateRate);
 		if (!isDead) {
-			if (!movementOverride) {
+			if (!movementOverride && !isWandering) {
 
 				Vector3 originalDir = transform.forward;
 				Vector3 targetPos = Camera.main.transform.position;

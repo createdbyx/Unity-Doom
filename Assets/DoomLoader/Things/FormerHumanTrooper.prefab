@@ -517,6 +517,8 @@ MonoBehaviour:
   moveSpeed: 5
   attackDistance: 20
   health: 10
+  attackDamage: 1
+  timeBetweenShots: 0.5
   deadLayer: Ignore Raycast
 --- !u!114 &114721535621290212
 MonoBehaviour:

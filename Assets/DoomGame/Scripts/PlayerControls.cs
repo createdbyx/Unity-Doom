@@ -58,7 +58,7 @@ public class PlayerControls : MonoBehaviour
 
 		// Use Item
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			Ray ray = new Ray (transform.position, transform.forward);
+			Ray ray = new Ray (transform.position, weaponManager.transform.forward);
 
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, 2, -1)) {

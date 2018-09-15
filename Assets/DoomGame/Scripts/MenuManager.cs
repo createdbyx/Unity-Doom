@@ -40,8 +40,8 @@ public class MenuManager : MonoBehaviour {
 		difficultyPanel.SetActive(false);
 	}
 
-	public void SelectMap(string map) {
-		wadLoader.SetAutoLoadMap(map);
+	public void SelectEpisode(int episode) {
+		wadLoader.SetAutoLoadEpisode(episode);
 		mapSelectPanel.SetActive(false);
 		difficultyPanel.SetActive(true);
 	}

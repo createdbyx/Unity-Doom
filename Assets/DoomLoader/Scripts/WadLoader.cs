@@ -17,7 +17,8 @@ public class WadLoader : MonoBehaviour
     public bool deathmatch;
     public static List<Lump> lumps = new List<Lump>();
     public string autoloadWad = "Doom1.WAD";
-    public string autoloadMap = "E1M1";
+    public int autoLoadEpisode = 1;
+    public int currentMission = 1;
     public GameObject PlayerObject;
 
     void Start() {
@@ -28,20 +29,24 @@ public class WadLoader : MonoBehaviour
     }
 
     public void LoadMap() {
-    	LoadMap(autoloadMap);
+		LoadMap(autoLoadEpisode, currentMission);
     }
 
-    public void LoadMap(string map)
+    public void LoadMap(int episode, int mission)
     {
 		if (MapLoader.vertices != null && MapLoader.vertices.Count > 0) Doom.UnloadCurrentMap();
 
         Shader.SetGlobalColor("_AMBIENTLIGHT", ambientLightColor);
-        autoloadMap = map;
+
+		autoLoadEpisode = episode;
+		currentMission = mission;
+
+		string map = "E" + autoLoadEpisode.ToString() + "M" + currentMission.ToString();
+
         if (string.IsNullOrEmpty(autoloadWad))
             return;
 
-        if (!string.IsNullOrEmpty(autoloadMap))
-            if (MapLoader.Instance.Load(autoloadMap))
+		if (MapLoader.Instance.Load(map))
             {
                 Mesher.Instance.CreateMeshes();
 
@@ -64,8 +69,12 @@ public class WadLoader : MonoBehaviour
             Doom.isLoaded = true;
 	}
 
-	public void SetAutoLoadMap(string input) {
-		autoloadMap = input;
+	public void SetCurrentMission(int input) {
+		currentMission = input;
+	}
+
+	public void SetAutoLoadEpisode(int input) {
+		autoLoadEpisode = input;
 	}
 
     public void ReloadScene() {

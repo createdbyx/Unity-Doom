@@ -5,15 +5,12 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour {
 
 	[SerializeField] private WadLoader wadLoader = null;
-	[SerializeField] private GameObject startCamera = null;
 	[Header("New Game")]
 	[SerializeField] private GameObject startPanel = null;
 	[SerializeField] private GameObject mapSelectPanel = null;
 	[SerializeField] private GameObject difficultyPanel = null;
 
 	[Header("Game Parts")]
-	[SerializeField] private GameObject player = null;
-	[SerializeField] private GameObject gameCanvas = null;
 	[SerializeField] private GameObject endCard = null;
 
 	private static MenuManager Instance;
@@ -31,9 +28,6 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public static void EnableEndCard () {
-		Instance.player.SetActive(false);
-		Instance.gameCanvas.SetActive(false);
-		Instance.startCamera.SetActive(true);
 		Instance.endCard.SetActive(true);
 	}
 
@@ -65,9 +59,7 @@ public class MenuManager : MonoBehaviour {
 		Doom.isPaused = false;
         Time.timeScale = 1;
 		wadLoader.LoadMap();
-		startCamera.SetActive(false);
 		difficultyPanel.SetActive(false);
-		player.SetActive(true);
-		gameCanvas.SetActive(true);
+		Doom.player.enabled = true;
 	}
 }

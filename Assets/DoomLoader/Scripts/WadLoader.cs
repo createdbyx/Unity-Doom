@@ -26,6 +26,8 @@ public class WadLoader : MonoBehaviour
             return;
 
 		TextureLoader.Instance.LoadAndBuildAll();
+		LoadMap();
+		Doom.player.enabled = false;
     }
 
     public bool LoadMap() {
@@ -57,7 +59,7 @@ public class WadLoader : MonoBehaviour
                 Debug.LogError("PlayerStart1 == null");
             else
             {
-                PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position;
+                PlayerObject.transform.position = PlayerStart.PlayerStarts[0].transform.position + (Vector3.up * 0.88f);
                 PlayerObject.transform.rotation = PlayerStart.PlayerStarts[0].transform.rotation;
             }
 

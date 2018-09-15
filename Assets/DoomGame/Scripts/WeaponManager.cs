@@ -16,11 +16,13 @@ public class WeaponManager : MonoBehaviour {
 	[SerializeField] private WeaponType[] weaponTypes = null;
 
 	private bool canShoot = true;
-
 	private Dictionary<AmmoType, AmmoConfig> ammoDict = new Dictionary<AmmoType, AmmoConfig>();
 
 	private int weaponIdx = 0;
 	private int animIdx = 0;
+
+	private WeaponType.State[] missionStartWeapons;
+	public int[] missionStartAmmo;
 
 	public int CurrentAmmo {
 		get {
@@ -48,6 +50,29 @@ public class WeaponManager : MonoBehaviour {
 		if (canShoot)
 		if (animIdx == 0 && (GetAmmo(weaponTypes[weaponIdx].name) != 0 || weaponTypes [weaponIdx].ammoType == AmmoType.UNLM)) {
 			PlayShootAnimation ();
+		}
+	}
+
+	public void SetMissionStartWeapons ()
+	{
+		missionStartWeapons = new WeaponType.State[weaponTypes.Length];
+		for (int i = 0; i < missionStartWeapons.Length; i++) {
+			missionStartWeapons[i] = weaponTypes[i].state;
+		}
+
+		missionStartAmmo = new int[ammo.Length];
+		for (int i = 0; i < missionStartAmmo.Length; i++) {
+			missionStartAmmo[i] = ammo[i].currentAmmo;
+		}
+
+	}
+
+	public void ResetMissionWeapons () {
+		for (int i = 0; i < missionStartWeapons.Length; i++) {
+			weaponTypes[i].state = missionStartWeapons[i];
+		}
+		for (int i = 0; i < missionStartAmmo.Length; i++) {
+			ammo[i].currentAmmo = missionStartAmmo[i];
 		}
 	}
 
@@ -117,6 +142,8 @@ public class WeaponManager : MonoBehaviour {
 		foreach (WeaponType wt in weaponTypes) {
 			wt.UpdateArmsDisplay();
 		}
+
+		SetMissionStartWeapons();
 	}
 
 	public void ObtainWeapon(string id, WeaponType.State state) {

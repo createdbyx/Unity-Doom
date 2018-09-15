@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public static class Doom {
 
+	public static PlayerControls player;
+
 	public static bool isPaused = false;
 	public static bool isLoaded = false;
 
@@ -21,7 +23,9 @@ public static class Doom {
 		UnloadCurrentMap ();
 		WadLoader.Instance.currentMission++;
 		if (!WadLoader.Instance.LoadMap ()) {
-			MenuManager.EnableEndCard();
+			MenuManager.EnableEndCard ();
+		} else {
+			player.SetMissionStartWeapons();
 		}
 	}
 

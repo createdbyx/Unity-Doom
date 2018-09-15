@@ -22,11 +22,17 @@ public class PlayerControls : MonoBehaviour
 	CharacterController controller;
 	private bool isInDamageZone = false;
 	private Coroutine damageCoroutine;
+	private Vector3 cameraStartPos;
+
+	void Awake() {
+		Doom.player = this;
+	}
 
     void Start() {
 		Invoke("UpdateGUIStats", 0);
 		StartCoroutine(CheckForDamageZone());
 		controller = GetComponent<CharacterController> ();
+		cameraStartPos = Camera.main.transform.localPosition;
     }
 
     void Update ()
@@ -36,8 +42,10 @@ public class PlayerControls : MonoBehaviour
 		if (health == 0) {
 			transform.GetChild (0).localPosition = Vector3.MoveTowards (transform.GetChild (0).localPosition, new Vector3 (0, -0.5f, 0), Time.deltaTime);
 			if (Input.GetMouseButtonDown (0)) {
-				Doom.UnloadCurrentWad ();
-				WadLoader.Instance.ReloadScene ();
+				weaponManager.ResetMissionWeapons();
+				Doom.UnloadCurrentMap ();
+				WadLoader.Instance.LoadMap();
+				Revive();
 			}
 			return;
 		}
@@ -79,6 +87,22 @@ public class PlayerControls : MonoBehaviour
 			weaponManager.SetSelectedWeapon(2);
 		}
     }
+
+    public void Revive ()
+	{
+		if (health > 0) {
+			Debug.LogWarning("Trying to revive when Health > 0");
+			return;
+		}
+		health = 100;
+		Camera.main.transform.localPosition = cameraStartPos;
+		UpdateGUIStats();
+		faceManager.UpdateFace(health);
+    }
+
+    public void SetMissionStartWeapons () {
+		weaponManager.SetMissionStartWeapons();
+	}
 
     public void TakeDamage (int amount)
 	{

@@ -88,6 +88,9 @@ public class PlayerControls : MonoBehaviour
 			} else {
 				armour = 0;
 				health -= amount;
+
+				if (health < 0) health = 0;
+
 				guiManager.SetHealth (health);
 			}
 			guiManager.SetArmour (armour);

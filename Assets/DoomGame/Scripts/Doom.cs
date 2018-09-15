@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class Doom {
+
+	public static bool isPaused = false;
+	public static bool isLoaded = false;
+
 	public static void LoadScene (string sceneName) {
 		UnloadCurrentWad();
 		UnloadCurrentMap();
@@ -55,5 +59,7 @@ public static class Doom {
 		MapLoader.sectors_lump = null;
 		MapLoader.reject_lump = null;
 		MapLoader.blockmap_lump = null;
+
+		isLoaded = false;
 	}
 }

@@ -60,6 +60,8 @@ public class WadLoader : MonoBehaviour
                 //PlayerObject.GetComponent<AudioSource>().clip = SoundLoader.LoadSound("DSPISTOL");
                 //PlayerObject.GetComponent<AudioSource>().Play();
             }
+
+            Doom.isLoaded = true;
 	}
 
 	public void SetAutoLoadMap(string input) {

@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		hitLayer = LayerMask.NameToLayer("Entity");
+		hitLayer = LayerMask.NameToLayer("ENTITY");
 		if (maxLifetime > 0) {
 			Invoke("DestroySelf", maxLifetime);
 		}

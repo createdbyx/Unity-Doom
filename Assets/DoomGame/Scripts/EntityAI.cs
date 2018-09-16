@@ -32,12 +32,14 @@ public class EntityAI : MonoBehaviour {
 
 	void Update ()
 	{
+		if (isDead) return;
+
 		// Movement controls for strats
 		switch (aiStrategy) {
 		case AIStrategy.FollowPlayer:
 			if (isWandering) { // move straight forward to wander in previously set direction
 				transform.position += transform.forward * moveSpeed / 2 * Time.deltaTime;
-			} else if (!isDead && isMoving && !movementOverride && canSeePlayer) {
+			} else if (isMoving && !movementOverride && canSeePlayer) {
 				// move towards previously set target destination
 				transform.position = Vector3.MoveTowards (transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
 			}

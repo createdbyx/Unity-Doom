@@ -97,7 +97,7 @@ public class EntityAI : MonoBehaviour {
 		if (aiStrategy != AIStrategy.GuardPoint) {
 			animator.SetAnimationSet ("MOVE");
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, Random.Range (0, 360), transform.eulerAngles.z);
-		} else {
+		} else if (health > 0) {
 			animator.SetAnimationSet ("IDLE");
 		}
 		isWandering = true;

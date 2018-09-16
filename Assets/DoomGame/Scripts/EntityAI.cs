@@ -99,6 +99,8 @@ public class EntityAI : MonoBehaviour {
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, Random.Range (0, 360), transform.eulerAngles.z);
 		} else if (health > 0) {
 			animator.SetAnimationSet ("IDLE");
+		} else {
+			animator.SetAnimationSet ("DEAD");
 		}
 		isWandering = true;
 	}

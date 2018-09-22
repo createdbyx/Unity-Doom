@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField] private GameObject difficultyPanel = null;
 
 	[Header("Game Parts")]
+	[SerializeField] private MusicManager musicManager = null;
 	[SerializeField] private GameObject endCard = null;
 
 	private static MenuManager Instance;
@@ -52,6 +53,14 @@ public class MenuManager : MonoBehaviour {
 		wadLoader.SetAutoLoadEpisode(episode);
 		mapSelectPanel.SetActive(false);
 		difficultyPanel.SetActive(true);
+	}
+
+	public void PlayMusic(string musicID) {
+		musicManager.PlayMusic(musicID);
+	}
+
+	public void PlayEpisodeFirstMusic () {
+		musicManager.PlayMusic("D_E" + wadLoader.autoLoadEpisode.ToString() + "M1");
 	}
 
 	// TODO: give this some actual effect

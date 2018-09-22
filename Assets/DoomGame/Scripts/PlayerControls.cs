@@ -49,9 +49,6 @@ public class PlayerControls : MonoBehaviour
 
 		if (health == 0) {
 			transform.GetChild (0).localPosition = Vector3.MoveTowards (transform.GetChild (0).localPosition, new Vector3 (0, -0.5f, 0), Time.deltaTime);
-			if (Input.GetMouseButtonDown (0)) {
-				
-			}
 			return;
 		}
 

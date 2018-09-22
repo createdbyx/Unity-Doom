@@ -69,6 +69,6 @@ public class MenuManager : MonoBehaviour {
         Time.timeScale = 1;
 		wadLoader.LoadMap();
 		difficultyPanel.SetActive(false);
-		Doom.player.enabled = true;
+		Doom.player.SetInputEnabled(true);
 	}
 }

@@ -13,6 +13,7 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private WeaponManager weaponManager = null;
 	[SerializeField] private GUIManager guiManager = null;
 	[SerializeField] private FaceManager faceManager = null;
+	[SerializeField] private GameObject inputManager = null;
 	[Header("References")]
     [SerializeField] private AudioSource oofAudio = null;
     [Header("Layers")]
@@ -23,6 +24,13 @@ public class PlayerControls : MonoBehaviour
 	private bool isInDamageZone = false;
 	private Coroutine damageCoroutine;
 	private Vector3 cameraStartPos;
+	private Vector2 input;
+
+	public int Health {
+		get {
+			return health;
+		}
+	}
 
 	void Awake() {
 		Doom.player = this;
@@ -42,54 +50,45 @@ public class PlayerControls : MonoBehaviour
 		if (health == 0) {
 			transform.GetChild (0).localPosition = Vector3.MoveTowards (transform.GetChild (0).localPosition, new Vector3 (0, -0.5f, 0), Time.deltaTime);
 			if (Input.GetMouseButtonDown (0)) {
-				weaponManager.ResetMissionWeapons();
-				Doom.UnloadCurrentMap ();
-				WadLoader.Instance.LoadMap();
-				Revive();
+				
 			}
 			return;
 		}
 
 		// Move Character
-		weaponManager.transform.Rotate (0, Input.GetAxis ("Horizontal") * rotateSpeed, 0);
+		weaponManager.transform.Rotate (0, input.x * rotateSpeed, 0);
 		Vector3 forward = transform.TransformDirection (Vector3.forward);
-		float curSpeed = speed * Input.GetAxis ("Vertical");
+		float curSpeed = speed * input.y;
 		controller.SimpleMove (forward * curSpeed);
-
-		// Use Item
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Ray ray = new Ray (transform.position, weaponManager.transform.forward);
-
-			RaycastHit hit;
-			if (Physics.Raycast (ray, out hit, 2, -1)) {
-				PokeableLinedef lc = hit.collider.gameObject.GetComponent<PokeableLinedef> ();
-				if (lc != null) {
-					lc.Poke (gameObject);
-				} else {
-					oofAudio.PlayOneShot(SoundLoader.LoadSound("DSOOF"));
-				}
-            }
-        }
-
-		// Shoot
-		if (Input.GetMouseButtonDown (0)) {
-			weaponManager.Shoot();
-		}
-
-		// Switch Weapons - is there a better way to do this?
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			weaponManager.SetSelectedWeapon(0);
-		}
-		if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			weaponManager.SetSelectedWeapon(1);
-		}
-		if (Input.GetKeyDown (KeyCode.Alpha3)) {
-			weaponManager.SetSelectedWeapon(2);
-		}
+		input = Vector2.zero;
     }
 
-    public void Revive ()
+    public void SetInput(Vector2 input_) {
+    	this.input = input_;
+    }
+
+    public void TryUse() {
+		Ray ray = new Ray (transform.position, weaponManager.transform.forward);
+
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit, 2, -1)) {
+			PokeableLinedef lc = hit.collider.gameObject.GetComponent<PokeableLinedef> ();
+			if (lc != null) {
+				lc.Poke (gameObject);
+			} else {
+				oofAudio.PlayOneShot(SoundLoader.LoadSound("DSOOF"));
+			}
+        }
+    }
+
+    public void Revive (bool restartMap)
 	{
+		if (restartMap) {
+			weaponManager.ResetMissionWeapons ();
+			Doom.UnloadCurrentMap ();
+			WadLoader.Instance.LoadMap ();
+		}
+
 		if (health > 0) {
 			Debug.LogWarning("Trying to revive when Health > 0");
 			return;
@@ -98,7 +97,7 @@ public class PlayerControls : MonoBehaviour
 		Camera.main.transform.localPosition = cameraStartPos;
 		UpdateGUIStats();
 		faceManager.UpdateFace(health);
-    }
+	}
 
     public void SetMissionStartWeapons () {
 		weaponManager.SetMissionStartWeapons();
@@ -120,6 +119,10 @@ public class PlayerControls : MonoBehaviour
 			guiManager.SetArmour (armour);
 			faceManager.UpdateFace(health);
 		}
+    }
+
+    public void SetInputEnabled(bool enabled) {
+		inputManager.SetActive(enabled);
     }
 
     private void UpdateGUIStats() {

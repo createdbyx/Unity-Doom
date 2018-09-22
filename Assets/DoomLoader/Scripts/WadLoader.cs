@@ -153,6 +153,6 @@ public class WadLoader : MonoBehaviour
 	}
 
     private void SetPlayerDisabled() {
-		Doom.player.enabled = false;
+		Doom.player.SetInputEnabled(false);
     }
 }
